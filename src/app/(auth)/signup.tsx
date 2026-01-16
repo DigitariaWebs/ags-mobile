@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   View,
   Text,
@@ -11,22 +11,105 @@ import {
 import { Link } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
+import {
+  signupStep1Schema,
+  signupStep2Schema,
+  signupStep3Schema,
+} from "@/schemas/validation";
 
 export default function Signup() {
   const [currentStep, setCurrentStep] = useState(1);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [gender, setGender] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [formData, setFormData] = useState<SignupFormData>({
+    firstName: "",
+    lastName: "",
+    gender: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+    acceptTerms: false,
+  });
+  const countryCode = "+221";
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [errors, setErrors] = useState<SignupFormErrors>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+    terms: "",
+  });
+
+  // Refs for form inputs
+  const firstNameRef = useRef<TextInput>(null);
+  const lastNameRef = useRef<TextInput>(null);
+  const emailRef = useRef<TextInput>(null);
+  const phoneRef = useRef<TextInput>(null);
+  const passwordRef = useRef<TextInput>(null);
+  const confirmPasswordRef = useRef<TextInput>(null);
+
+  const validateStep = (step: number): boolean => {
+    let newErrors: SignupFormErrors = {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      password: "",
+      confirmPassword: "",
+      terms: "",
+    };
+    let isValid = true;
+
+    try {
+      switch (step) {
+        case 1:
+          signupStep1Schema.parse({
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            gender: formData.gender,
+          });
+          break;
+
+        case 2:
+          signupStep2Schema.parse({
+            email: formData.email,
+            phone: formData.phone,
+          });
+          break;
+
+        case 3:
+          signupStep3Schema.parse({
+            password: formData.password,
+            confirmPassword: formData.confirmPassword,
+            acceptTerms: formData.acceptTerms,
+          });
+          break;
+
+        default:
+          return true;
+      }
+    } catch (error: any) {
+      if (error.errors) {
+        error.errors.forEach((err: any) => {
+          const field = err.path[0] as keyof SignupFormErrors;
+          if (field === "terms") {
+            newErrors.terms = err.message;
+          } else if (field in newErrors) {
+            newErrors[field] = err.message;
+          }
+        });
+      }
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const handleNext = () => {
-    if (currentStep < 3) {
+    if (validateStep(currentStep) && currentStep < 3) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -38,16 +121,17 @@ export default function Signup() {
   };
 
   const handleSignup = () => {
+    if (!validateStep(currentStep)) {
+      return;
+    }
+
+    // Remove leading zeros from phone number
+    const cleanedPhone = formData.phone.replace(/^0+/, "");
+
     // TODO: Implement signup logic
     console.log("Signup", {
-      firstName,
-      lastName,
-      gender,
-      email,
-      phone,
-      password,
-      confirmPassword,
-      acceptTerms,
+      ...formData,
+      phone: countryCode + cleanedPhone,
     });
   };
 
@@ -129,14 +213,28 @@ export default function Signup() {
                   <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5">
                     <Ionicons name="person-outline" size={20} color="#10b981" />
                     <TextInput
+                      ref={firstNameRef}
                       className="flex-1 ml-3 text-base text-foreground"
                       placeholder="Votre prénom"
                       placeholderTextColor="#9ca3af"
-                      value={firstName}
-                      onChangeText={setFirstName}
+                      value={formData.firstName}
+                      onChangeText={(text) => {
+                        setFormData({ ...formData, firstName: text });
+                        if (errors.firstName) {
+                          setErrors({ ...errors, firstName: "" });
+                        }
+                      }}
                       autoCapitalize="words"
+                      returnKeyType="next"
+                      onSubmitEditing={() => lastNameRef.current?.focus()}
+                      blurOnSubmit={false}
                     />
                   </View>
+                  {errors.firstName ? (
+                    <Text className="text-red-500 text-xs mt-1">
+                      {errors.firstName}
+                    </Text>
+                  ) : null}
                 </View>
 
                 {/* Last Name Input */}
@@ -147,14 +245,27 @@ export default function Signup() {
                   <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5">
                     <Ionicons name="person-outline" size={20} color="#10b981" />
                     <TextInput
+                      ref={lastNameRef}
                       className="flex-1 ml-3 text-base text-foreground"
                       placeholder="Votre nom de famille"
                       placeholderTextColor="#9ca3af"
-                      value={lastName}
-                      onChangeText={setLastName}
+                      value={formData.lastName}
+                      onChangeText={(text) => {
+                        setFormData({ ...formData, lastName: text });
+                        if (errors.lastName) {
+                          setErrors({ ...errors, lastName: "" });
+                        }
+                      }}
                       autoCapitalize="words"
+                      returnKeyType="done"
+                      onSubmitEditing={handleNext}
                     />
                   </View>
+                  {errors.lastName ? (
+                    <Text className="text-red-500 text-xs mt-1">
+                      {errors.lastName}
+                    </Text>
+                  ) : null}
                 </View>
 
                 {/* Gender Select */}
@@ -164,8 +275,10 @@ export default function Signup() {
                   </Text>
                   <View className="bg-gray-50 border border-gray-200 rounded-xl overflow-hidden">
                     <Picker
-                      selectedValue={gender}
-                      onValueChange={(itemValue) => setGender(itemValue)}
+                      selectedValue={formData.gender}
+                      onValueChange={(itemValue) =>
+                        setFormData({ ...formData, gender: itemValue })
+                      }
                       style={{ height: 50 }}
                     >
                       <Picker.Item label="Sélectionnez votre genre" value="" />
@@ -198,16 +311,30 @@ export default function Signup() {
                   <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5">
                     <Ionicons name="mail-outline" size={20} color="#10b981" />
                     <TextInput
+                      ref={emailRef}
                       className="flex-1 ml-3 text-base text-foreground"
                       placeholder="votre@email.com"
                       placeholderTextColor="#9ca3af"
-                      value={email}
-                      onChangeText={setEmail}
+                      value={formData.email}
+                      onChangeText={(text) => {
+                        setFormData({ ...formData, email: text });
+                        if (errors.email) {
+                          setErrors({ ...errors, email: "" });
+                        }
+                      }}
                       keyboardType="email-address"
                       autoCapitalize="none"
                       autoComplete="email"
+                      returnKeyType="next"
+                      onSubmitEditing={() => phoneRef.current?.focus()}
+                      blurOnSubmit={false}
                     />
                   </View>
+                  {errors.email ? (
+                    <Text className="text-red-500 text-xs mt-1">
+                      {errors.email}
+                    </Text>
+                  ) : null}
                 </View>
 
                 {/* Phone Input */}
@@ -217,16 +344,35 @@ export default function Signup() {
                   </Text>
                   <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5">
                     <Ionicons name="call-outline" size={20} color="#10b981" />
+                    <View className="ml-3 flex-row items-center border-r border-gray-300 pr-3">
+                      <Text className="text-2xl mr-1">🇸🇳</Text>
+                      <Text className="text-base text-foreground font-medium">
+                        {countryCode}
+                      </Text>
+                    </View>
                     <TextInput
+                      ref={phoneRef}
                       className="flex-1 ml-3 text-base text-foreground"
                       placeholder="Votre numéro de téléphone"
                       placeholderTextColor="#9ca3af"
-                      value={phone}
-                      onChangeText={setPhone}
+                      value={formData.phone}
+                      onChangeText={(text) => {
+                        setFormData({ ...formData, phone: text });
+                        if (errors.phone) {
+                          setErrors({ ...errors, phone: "" });
+                        }
+                      }}
                       keyboardType="phone-pad"
                       autoComplete="tel"
+                      returnKeyType="done"
+                      onSubmitEditing={handleNext}
                     />
                   </View>
+                  {errors.phone ? (
+                    <Text className="text-red-500 text-xs mt-1">
+                      {errors.phone}
+                    </Text>
+                  ) : null}
                 </View>
               </View>
             )}
@@ -255,14 +401,25 @@ export default function Signup() {
                       color="#10b981"
                     />
                     <TextInput
+                      ref={passwordRef}
                       className="flex-1 ml-3 text-base text-foreground"
                       placeholder="Votre mot de passe"
                       placeholderTextColor="#9ca3af"
-                      value={password}
-                      onChangeText={setPassword}
+                      value={formData.password}
+                      onChangeText={(text) => {
+                        setFormData({ ...formData, password: text });
+                        if (errors.password) {
+                          setErrors({ ...errors, password: "" });
+                        }
+                      }}
                       secureTextEntry={!showPassword}
                       autoCapitalize="none"
                       autoComplete="password"
+                      returnKeyType="next"
+                      onSubmitEditing={() =>
+                        confirmPasswordRef.current?.focus()
+                      }
+                      blurOnSubmit={false}
                     />
                     <TouchableOpacity
                       onPress={() => setShowPassword(!showPassword)}
@@ -275,6 +432,11 @@ export default function Signup() {
                       />
                     </TouchableOpacity>
                   </View>
+                  {errors.password ? (
+                    <Text className="text-red-500 text-xs mt-1">
+                      {errors.password}
+                    </Text>
+                  ) : null}
                 </View>
 
                 {/* Confirm Password Input */}
@@ -290,14 +452,22 @@ export default function Signup() {
                       color="#10b981"
                     />
                     <TextInput
+                      ref={confirmPasswordRef}
                       className="flex-1 ml-3 text-base text-foreground"
                       placeholder="Confirmez votre mot de passe"
                       placeholderTextColor="#9ca3af"
-                      value={confirmPassword}
-                      onChangeText={setConfirmPassword}
+                      value={formData.confirmPassword}
+                      onChangeText={(text) => {
+                        setFormData({ ...formData, confirmPassword: text });
+                        if (errors.confirmPassword) {
+                          setErrors({ ...errors, confirmPassword: "" });
+                        }
+                      }}
                       secureTextEntry={!showConfirmPassword}
                       autoCapitalize="none"
                       autoComplete="password"
+                      returnKeyType="done"
+                      onSubmitEditing={handleSignup}
                     />
                     <TouchableOpacity
                       onPress={() =>
@@ -316,23 +486,36 @@ export default function Signup() {
                       />
                     </TouchableOpacity>
                   </View>
+                  {errors.confirmPassword ? (
+                    <Text className="text-red-500 text-xs mt-1">
+                      {errors.confirmPassword}
+                    </Text>
+                  ) : null}
                 </View>
 
                 {/* Terms & Conditions */}
                 <View className="mb-0">
                   <TouchableOpacity
-                    onPress={() => setAcceptTerms(!acceptTerms)}
+                    onPress={() => {
+                      setFormData({
+                        ...formData,
+                        acceptTerms: !formData.acceptTerms,
+                      });
+                      if (errors.terms) {
+                        setErrors({ ...errors, terms: "" });
+                      }
+                    }}
                     activeOpacity={0.7}
                     className="flex-row items-start"
                   >
                     <View
                       className={`w-5 h-5 rounded border-2 mr-3 mt-0.5 items-center justify-center ${
-                        acceptTerms
+                        formData.acceptTerms
                           ? "bg-primary border-primary"
                           : "bg-white border-gray-300"
                       }`}
                     >
-                      {acceptTerms && (
+                      {formData.acceptTerms && (
                         <Ionicons name="checkmark" size={14} color="white" />
                       )}
                     </View>
@@ -347,6 +530,11 @@ export default function Signup() {
                       </Text>
                     </Text>
                   </TouchableOpacity>
+                  {errors.terms ? (
+                    <Text className="text-red-500 text-xs mt-1">
+                      {errors.terms}
+                    </Text>
+                  ) : null}
                 </View>
               </View>
             )}

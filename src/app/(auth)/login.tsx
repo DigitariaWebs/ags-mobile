@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   View,
   Text,
@@ -10,16 +10,59 @@ import {
 } from "react-native";
 import { Link } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { loginSchema } from "@/schemas/validation";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState<LoginFormData>({
+    email: "",
+    password: "",
+    rememberMe: false,
+  });
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
+  const [errors, setErrors] = useState<LoginFormErrors>({
+    email: "",
+    password: "",
+  });
+
+  // Refs for form inputs
+  const emailRef = useRef<TextInput>(null);
+  const passwordRef = useRef<TextInput>(null);
+
+  const validateForm = (): boolean => {
+    let newErrors: LoginFormErrors = {
+      email: "",
+      password: "",
+    };
+    let isValid = true;
+
+    try {
+      loginSchema.parse({
+        email: formData.email,
+        password: formData.password,
+      });
+    } catch (error: any) {
+      if (error.errors) {
+        error.errors.forEach((err: any) => {
+          const field = err.path[0] as keyof LoginFormErrors;
+          if (field in newErrors) {
+            newErrors[field] = err.message;
+          }
+        });
+      }
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const handleLogin = () => {
+    if (!validateForm()) {
+      return;
+    }
+
     // TODO: Implement login logic
-    console.log("Login", { email, password, rememberMe });
+    console.log("Login", formData);
   };
 
   return (
@@ -47,16 +90,30 @@ export default function Login() {
               <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5">
                 <Ionicons name="mail-outline" size={20} color="#10b981" />
                 <TextInput
+                  ref={emailRef}
                   className="flex-1 ml-3 text-base text-foreground"
                   placeholder="votre@email.com"
                   placeholderTextColor="#9ca3af"
-                  value={email}
-                  onChangeText={setEmail}
+                  value={formData.email}
+                  onChangeText={(text) => {
+                    setFormData({ ...formData, email: text });
+                    if (errors.email) {
+                      setErrors({ ...errors, email: "" });
+                    }
+                  }}
                   keyboardType="email-address"
                   autoCapitalize="none"
                   autoComplete="email"
+                  returnKeyType="next"
+                  onSubmitEditing={() => passwordRef.current?.focus()}
+                  blurOnSubmit={false}
                 />
               </View>
+              {errors.email ? (
+                <Text className="text-red-500 text-xs mt-1">
+                  {errors.email}
+                </Text>
+              ) : null}
             </View>
 
             {/* Password Input */}
@@ -71,14 +128,22 @@ export default function Login() {
                   color="#10b981"
                 />
                 <TextInput
+                  ref={passwordRef}
                   className="flex-1 ml-3 text-base text-foreground"
                   placeholder="Votre mot de passe"
                   placeholderTextColor="#9ca3af"
-                  value={password}
-                  onChangeText={setPassword}
+                  value={formData.password}
+                  onChangeText={(text) => {
+                    setFormData({ ...formData, password: text });
+                    if (errors.password) {
+                      setErrors({ ...errors, password: "" });
+                    }
+                  }}
                   secureTextEntry={!showPassword}
                   autoCapitalize="none"
                   autoComplete="password"
+                  returnKeyType="done"
+                  onSubmitEditing={handleLogin}
                 />
                 <TouchableOpacity
                   onPress={() => setShowPassword(!showPassword)}
@@ -91,23 +156,33 @@ export default function Login() {
                   />
                 </TouchableOpacity>
               </View>
+              {errors.password ? (
+                <Text className="text-red-500 text-xs mt-1">
+                  {errors.password}
+                </Text>
+              ) : null}
             </View>
 
             {/* Remember Me & Forgot Password */}
             <View className="flex-row justify-between items-center mb-8">
               <TouchableOpacity
-                onPress={() => setRememberMe(!rememberMe)}
+                onPress={() =>
+                  setFormData({
+                    ...formData,
+                    rememberMe: !formData.rememberMe,
+                  })
+                }
                 activeOpacity={0.7}
                 className="flex-row items-center"
               >
                 <View
                   className={`w-5 h-5 rounded border-2 mr-2 items-center justify-center ${
-                    rememberMe
+                    formData.rememberMe
                       ? "bg-primary border-primary"
                       : "bg-white border-gray-300"
                   }`}
                 >
-                  {rememberMe && (
+                  {formData.rememberMe && (
                     <Ionicons name="checkmark" size={14} color="white" />
                   )}
                 </View>

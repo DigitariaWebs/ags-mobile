@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   View,
   Text,
@@ -10,14 +10,53 @@ import {
 } from "react-native";
 import { Link, router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { forgotPasswordSchema } from "@/schemas/validation";
 
 export default function ForgotPassword() {
-  const [email, setEmail] = useState("");
+  const [formData, setFormData] = useState<ForgotPasswordFormData>({
+    email: "",
+  });
+  const [errors, setErrors] = useState<ForgotPasswordFormErrors>({
+    email: "",
+  });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  // Refs for form inputs
+  const emailRef = useRef<TextInput>(null);
+
+  const validateForm = (): boolean => {
+    let newErrors: ForgotPasswordFormErrors = {
+      email: "",
+    };
+    let isValid = true;
+
+    try {
+      forgotPasswordSchema.parse({
+        email: formData.email,
+      });
+    } catch (error: any) {
+      if (error.errors) {
+        error.errors.forEach((err: any) => {
+          const field = err.path[0] as keyof ForgotPasswordFormErrors;
+          if (field in newErrors) {
+            newErrors[field] = err.message;
+          }
+        });
+      }
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
   const handleSubmit = () => {
+    if (!validateForm()) {
+      return;
+    }
+
     // TODO: Implement forgot password logic
-    console.log("Forgot password for:", email);
+    console.log("Forgot password for:", formData.email);
     setIsSubmitted(true);
   };
 
@@ -64,16 +103,29 @@ export default function ForgotPassword() {
                   <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5">
                     <Ionicons name="mail-outline" size={20} color="#10b981" />
                     <TextInput
+                      ref={emailRef}
                       className="flex-1 ml-3 text-base text-foreground"
                       placeholder="votre@email.com"
                       placeholderTextColor="#9ca3af"
-                      value={email}
-                      onChangeText={setEmail}
+                      value={formData.email}
+                      onChangeText={(text) => {
+                        setFormData({ ...formData, email: text });
+                        if (errors.email) {
+                          setErrors({ ...errors, email: "" });
+                        }
+                      }}
                       keyboardType="email-address"
                       autoCapitalize="none"
                       autoComplete="email"
+                      returnKeyType="done"
+                      onSubmitEditing={handleSubmit}
                     />
                   </View>
+                  {errors.email ? (
+                    <Text className="text-red-500 text-xs mt-1">
+                      {errors.email}
+                    </Text>
+                  ) : null}
                 </View>
 
                 {/* Submit Button */}
@@ -107,7 +159,7 @@ export default function ForgotPassword() {
                   <Text className="text-base text-muted-foreground text-center mb-8">
                     Nous avons envoyé un lien de réinitialisation à{" "}
                     <Text className="font-semibold text-foreground">
-                      {email}
+                      {formData.email}
                     </Text>
                     . Veuillez vérifier votre boîte de réception.
                   </Text>
