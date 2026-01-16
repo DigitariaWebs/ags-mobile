@@ -8,13 +8,17 @@
     "scheme": "agsmobile",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.agsmobile"
     },
     "android": {
       "adaptiveIcon": {
@@ -22,7 +26,13 @@
         "foregroundImage": "./assets/images/Logo.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "config": {
+        "googleMaps": {
+          "apiKey": "YOUR_GOOGLE_MAPS_API_KEY"
+        }
+      },
+      "package": "com.anonymous.agsmobile"
     },
     "web": {
       "output": "static",

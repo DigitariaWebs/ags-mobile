@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Text, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Link } from "expo-router";
-import Onboarding from "./onboarding";
+import { Link, useRouter } from "expo-router";
 import Button from "@/components/ui/button";
 
 export default function Index() {
   const [isOnboardingCompleted, setIsOnboardingCompleted] = useState<
     boolean | null
   >(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     const checkOnboarding = async () => {
@@ -27,7 +28,7 @@ export default function Index() {
   }
 
   if (!isOnboardingCompleted) {
-    return <Onboarding onComplete={() => setIsOnboardingCompleted(true)} />;
+    router.replace("/onboarding");
   }
 
   const resetOnboarding = async () => {
@@ -48,6 +49,12 @@ export default function Index() {
       <Link href="/(auth)/login" asChild>
         <Button onPress={() => {}} variant="primary">
           <Text className="text-primary-foreground">Se connecter</Text>
+        </Button>
+      </Link>
+
+      <Link href="/map" asChild>
+        <Button onPress={() => {}} variant="primary">
+          <Text className="text-primary-foreground">go to map</Text>
         </Button>
       </Link>
 
