@@ -40,3 +40,22 @@ interface ForgotPasswordFormData {
 interface ForgotPasswordFormErrors {
   email: string;
 }
+
+// Map Types
+interface RegionProperties {
+  name: string;
+  name_fr: string;
+  region_code: string;
+  population: number;
+  area_km2: number;
+}
+
+interface SelectedRegion {
+  id: string;
+  name: string;
+}
+
+interface MapBounds {
+  ne: [number, number];
+  sw: [number, number];
+}

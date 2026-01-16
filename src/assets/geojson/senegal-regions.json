@@ -1,0 +1,327 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "dakar",
+      "properties": {
+        "name": "Dakar",
+        "name_fr": "Dakar",
+        "region_code": "DK",
+        "population": 3732166,
+        "area_km2": 547
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-17.2, 14.6],
+            [-17.5, 14.6],
+            [-17.5, 14.8],
+            [-17.2, 14.8],
+            [-17.2, 14.6]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "thies",
+      "properties": {
+        "name": "Thiès",
+        "name_fr": "Thiès",
+        "region_code": "TH",
+        "population": 1788864,
+        "area_km2": 6670
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-16.5, 14.5],
+            [-17.2, 14.5],
+            [-17.2, 15.0],
+            [-16.5, 15.0],
+            [-16.5, 14.5]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "saint-louis",
+      "properties": {
+        "name": "Saint-Louis",
+        "name_fr": "Saint-Louis",
+        "region_code": "SL",
+        "population": 1017149,
+        "area_km2": 19034
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-15.5, 15.5],
+            [-16.5, 15.5],
+            [-16.5, 16.5],
+            [-15.5, 16.5],
+            [-15.5, 15.5]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "diourbel",
+      "properties": {
+        "name": "Diourbel",
+        "name_fr": "Diourbel",
+        "region_code": "DB",
+        "population": 1595963,
+        "area_km2": 4359
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-15.8, 14.3],
+            [-16.5, 14.3],
+            [-16.5, 14.8],
+            [-15.8, 14.8],
+            [-15.8, 14.3]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "louga",
+      "properties": {
+        "name": "Louga",
+        "name_fr": "Louga",
+        "region_code": "LG",
+        "population": 930615,
+        "area_km2": 29188
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-15.0, 15.0],
+            [-16.0, 15.0],
+            [-16.0, 16.0],
+            [-15.0, 16.0],
+            [-15.0, 15.0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "fatick",
+      "properties": {
+        "name": "Fatick",
+        "name_fr": "Fatick",
+        "region_code": "FK",
+        "population": 771547,
+        "area_km2": 7935
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-16.0, 13.8],
+            [-16.8, 13.8],
+            [-16.8, 14.5],
+            [-16.0, 14.5],
+            [-16.0, 13.8]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "kaolack",
+      "properties": {
+        "name": "Kaolack",
+        "name_fr": "Kaolack",
+        "region_code": "KL",
+        "population": 960875,
+        "area_km2": 16010
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-15.5, 13.8],
+            [-16.0, 13.8],
+            [-16.0, 14.5],
+            [-15.5, 14.5],
+            [-15.5, 13.8]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "matam",
+      "properties": {
+        "name": "Matam",
+        "name_fr": "Matam",
+        "region_code": "MT",
+        "population": 623640,
+        "area_km2": 29445
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-13.0, 15.0],
+            [-14.5, 15.0],
+            [-14.5, 16.0],
+            [-13.0, 16.0],
+            [-13.0, 15.0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "tambacounda",
+      "properties": {
+        "name": "Tambacounda",
+        "name_fr": "Tambacounda",
+        "region_code": "TC",
+        "population": 681310,
+        "area_km2": 59602
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-13.0, 13.0],
+            [-14.5, 13.0],
+            [-14.5, 14.5],
+            [-13.0, 14.5],
+            [-13.0, 13.0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "kedougou",
+      "properties": {
+        "name": "Kédougou",
+        "name_fr": "Kédougou",
+        "region_code": "KD",
+        "population": 196202,
+        "area_km2": 16896
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-12.0, 12.0],
+            [-13.0, 12.0],
+            [-13.0, 13.0],
+            [-12.0, 13.0],
+            [-12.0, 12.0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "kolda",
+      "properties": {
+        "name": "Kolda",
+        "name_fr": "Kolda",
+        "region_code": "KD",
+        "population": 714392,
+        "area_km2": 21011
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-14.5, 12.5],
+            [-15.5, 12.5],
+            [-15.5, 13.5],
+            [-14.5, 13.5],
+            [-14.5, 12.5]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ziguinchor",
+      "properties": {
+        "name": "Ziguinchor",
+        "name_fr": "Ziguinchor",
+        "region_code": "ZG",
+        "population": 549151,
+        "area_km2": 7339
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-16.0, 12.3],
+            [-16.8, 12.3],
+            [-16.8, 13.0],
+            [-16.0, 13.0],
+            [-16.0, 12.3]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "sedhiou",
+      "properties": {
+        "name": "Sédhiou",
+        "name_fr": "Sédhiou",
+        "region_code": "SE",
+        "population": 532202,
+        "area_km2": 7293
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-15.0, 12.5],
+            [-16.0, 12.5],
+            [-16.0, 13.2],
+            [-15.0, 13.2],
+            [-15.0, 12.5]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "kaffrine",
+      "properties": {
+        "name": "Kaffrine",
+        "name_fr": "Kaffrine",
+        "region_code": "KA",
+        "population": 567315,
+        "area_km2": 11262
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-14.5, 13.8],
+            [-15.5, 13.8],
+            [-15.5, 14.5],
+            [-14.5, 14.5],
+            [-14.5, 13.8]
+          ]
+        ]
+      }
+    }
+  ]
+}

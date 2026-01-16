@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Button from "@/components/ui/button";
+import { useRouter } from "expo-router";
 
 const { width, height } = Dimensions.get("window");
 
@@ -60,15 +61,13 @@ const slides: Slide[] = [
   },
 ];
 
-interface OnboardingProps {
-  onComplete: () => void;
-}
-
-export default function Onboarding({ onComplete }: OnboardingProps) {
+export default function Onboarding() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollViewRef = useRef<ScrollView>(null);
   const fadeAnim = useRef(new Animated.Value(1)).current;
   const slideAnim = useRef(new Animated.Value(0)).current;
+
+  const router = useRouter();
 
   React.useEffect(() => {
     // Reset values first
@@ -121,10 +120,9 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
   const completeOnboarding = async () => {
     try {
       await AsyncStorage.setItem("onboardingCompleted", "true");
-      onComplete();
+      return router.navigate("/");
     } catch (error) {
       console.error("Error saving onboarding status:", error);
-      onComplete();
     }
   };
 
