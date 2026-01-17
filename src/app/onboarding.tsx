@@ -133,8 +133,8 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
       {/* Decorative background gradient */}
       <View className="absolute inset-0 opacity-5">
         <View
-          style={{ backgroundColor: slides[currentIndex].accentColor }}
           className="flex-1"
+          style={{ backgroundColor: slides[currentIndex].accentColor }}
         />
       </View>
 
@@ -150,8 +150,8 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
         {slides.map((slide, index) => (
           <View
             key={index}
-            style={{ width }}
             className="flex-1 justify-center items-center px-6 py-16"
+            style={{ width }}
           >
             <Animated.View
               style={{
@@ -168,11 +168,10 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                   // First slide - centered logo
                   <View className="items-center justify-center h-full">
                     <View
+                      className="overflow-hidden p-12 rounded-full"
                       style={{
-                        borderRadius: 120,
                         backgroundColor: `${slide.accentColor}15`,
                       }}
-                      className="overflow-hidden p-12"
                     >
                       <Image
                         source={slide.image}
@@ -186,11 +185,10 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                   <View className="relative w-full h-full items-center justify-center">
                     {/* Main large image */}
                     <View
+                      className="overflow-hidden absolute w-60 h-72 z-10 shadow-lg shadow-black/10 rounded-[32px]"
                       style={{
-                        borderRadius: 32,
                         backgroundColor: `${slide.accentColor}10`,
                       }}
-                      className="overflow-hidden absolute w-60 h-72 z-10 shadow-lg shadow-black/10"
                     >
                       <Image
                         source={slide.image}
@@ -201,11 +199,10 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
 
                     {/* Decorative smaller images */}
                     <View
+                      className="overflow-hidden absolute top-0 left-4 w-24 h-32 shadow-md shadow-black/10 rounded-3xl"
                       style={{
-                        borderRadius: 24,
                         backgroundColor: `${slide.accentColor}08`,
                       }}
-                      className="overflow-hidden absolute top-0 left-4 w-24 h-32 shadow-md shadow-black/10"
                     >
                       <Image
                         source={slide.image}
@@ -215,11 +212,10 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                     </View>
 
                     <View
+                      className="overflow-hidden absolute bottom-4 right-6 w-28 h-28 shadow-md shadow-black/10 rounded-3xl"
                       style={{
-                        borderRadius: 24,
                         backgroundColor: `${slide.accentColor}08`,
                       }}
-                      className="overflow-hidden absolute bottom-4 right-6 w-28 h-28 shadow-md shadow-black/10"
                     >
                       <Image
                         source={slide.image}
@@ -229,11 +225,10 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                     </View>
 
                     <View
+                      className="overflow-hidden absolute top-12 right-2 w-20 h-24 shadow-md shadow-black/10 rounded-[20px]"
                       style={{
-                        borderRadius: 20,
                         backgroundColor: `${slide.accentColor}08`,
                       }}
-                      className="overflow-hidden absolute top-12 right-2 w-20 h-24 shadow-md shadow-black/10"
                     >
                       <Image
                         source={slide.image}
@@ -251,8 +246,8 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                   {slide.title}
                 </Text>
                 <View
-                  style={{ backgroundColor: slide.accentColor }}
                   className="w-16 h-1 rounded-full mb-6"
+                  style={{ backgroundColor: slide.accentColor }}
                 />
                 <Text className="text-lg text-muted-foreground text-center leading-7 px-4">
                   {slide.description}
@@ -302,8 +297,8 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
             {currentIndex > 0 ? (
               <TouchableOpacity onPress={goToPrev} activeOpacity={0.7}>
                 <Text
-                  style={{ color: slides[currentIndex].accentColor }}
                   className="font-semibold text-base"
+                  style={{ color: slides[currentIndex].accentColor }}
                 >
                   ← Précédent
                 </Text>

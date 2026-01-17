@@ -12,12 +12,12 @@ To create a digital platform that connects stakeholders in the Senegalese agricu
 
 **Target audience:**
 
-* Farmers and livestock breeders
-* Agricultural cooperatives
-* Agricultural technicians
-* Support and advisory institutions
-* Young job seekers in agriculture
-* Agricultural investors and partners
+- Farmers and livestock breeders
+- Agricultural cooperatives
+- Agricultural technicians
+- Support and advisory institutions
+- Young job seekers in agriculture
+- Agricultural investors and partners
 
 ---
 
@@ -25,12 +25,11 @@ To create a digital platform that connects stakeholders in the Senegalese agricu
 
 ### A. Home Page – Interactive Map of Senegal
 
-* Display of a dynamic map of Senegal, divided by administrative regions.
-* When a user clicks on a region, the following are displayed:
-
-  * Registered farms in that region (name, location, type of production, area, contact details).
-  * Option to filter by type of production (market gardening, livestock farming, rain-fed crops, etc.).
-  * **“View farm profile”** button → displays detailed information (photos, manager, GPS coordinates, soil type, techniques used, etc.).
+- Display of a dynamic map of Senegal, divided by administrative regions.
+- When a user clicks on a region, the following are displayed:
+  - Registered farms in that region (name, location, type of production, area, contact details).
+  - Option to filter by type of production (market gardening, livestock farming, rain-fed crops, etc.).
+  - **“View farm profile”** button → displays detailed information (photos, manager, GPS coordinates, soil type, techniques used, etc.).
 
 ---
 
@@ -39,21 +38,21 @@ To create a digital platform that connects stakeholders in the Senegalese agricu
 **Objective:**
 To provide automatic recommendations on:
 
-* Fertilization practices
-* Appropriate phytosanitary treatments based on soil characteristics, farm size, and location
+- Fertilization practices
+- Appropriate phytosanitary treatments based on soil characteristics, farm size, and location
 
 **User process:**
 a. The user clicks on **“Personalized advice”**.
 b. The application asks for:
 
-* Location (region / department / municipality)
-* Cultivated area (in m² or hectares)
-* Soil type (choice among: sandy, loamy, clay)
-* Farm itinerary (planned type of production)
-* Crop
+- Location (region / department / municipality)
+- Cultivated area (in m² or hectares)
+- Soil type (choice among: sandy, loamy, clay)
+- Farm itinerary (planned type of production)
+- Crop
   c. After validation, the application automatically generates:
-* A recommended fertilization plan (quantities, types of organic or mineral fertilizers, application frequency)
-* A phytosanitary treatment program (preventive and curative, depending on the crop type)
+- A recommended fertilization plan (quantities, types of organic or mineral fertilizers, application frequency)
+- A phytosanitary treatment program (preventive and curative, depending on the crop type)
 
 ---
 
@@ -85,30 +84,28 @@ Farms can also publish job offers (job title, required profile, contract type, p
 
 ### A. Free Application
 
-* Agsmobile is 100% free for users.
-* Objective: encourage wide adoption among farmers and rural youth.
+- Agsmobile is 100% free for users.
+- Objective: encourage wide adoption among farmers and rural youth.
 
 ### B. Revenue Sources
 
 **Targeted advertising:**
 
-* Advertising spaces reserved for input suppliers, NGOs, agricultural institutions, producers, etc.
-* Ads displayed in a relevant and non-intrusive way based on location or user type.
+- Advertising spaces reserved for input suppliers, NGOs, agricultural institutions, producers, etc.
+- Ads displayed in a relevant and non-intrusive way based on location or user type.
 
 **Sale and distribution of agricultural inputs:**
 
-* Agsmobile will act as a direct supplier of agricultural inputs:
+- Agsmobile will act as a direct supplier of agricultural inputs:
+  - Fertilizers (organic and mineral)
+  - Phytosanitary products
+  - Seeds and light agricultural equipment
 
-  * Fertilizers (organic and mineral)
-  * Phytosanitary products
-  * Seeds and light agricultural equipment
-
-* Integration of an online shop within the application:
-
-  * Product browsing
-  * Price consultation
-  * Online ordering
-  * Delivery
+- Integration of an online shop within the application:
+  - Product browsing
+  - Price consultation
+  - Online ordering
+  - Delivery
 
 ---
 
@@ -118,17 +115,17 @@ Enable anyone (farmer, student, technician, or enthusiast) to easily learn good 
 
 ### A. Module content:
 
-* Introduction to greenhouse farming
-* Soil typology
-* Complete technical itinerary (sowing → harvesting)
-* Common diseases and pests
-* Irrigation and fertigation
-* Composting techniques
+- Introduction to greenhouse farming
+- Soil typology
+- Complete technical itinerary (sowing → harvesting)
+- Common diseases and pests
+- Irrigation and fertigation
+- Composting techniques
 
 ### B. Optional certification training:
 
-* Online courses
-* On-site training in Keur Ndiaye Lo
-* Certificate issued at the end of the training
+- Online courses
+- On-site training in Keur Ndiaye Lo
+- Certificate issued at the end of the training
 
 This module contributes to the professionalization of the agricultural sector and to continuous training of farmers in new sustainable production techniques.

@@ -9,25 +9,25 @@ export interface RegionProperties {
 }
 
 export interface SenegalRegion {
-  type: 'Feature';
+  type: "Feature";
   properties: RegionProperties;
   geometry: {
-    type: 'Polygon';
+    type: "Polygon";
     coordinates: number[][][];
   };
 }
 
 export const senegalRegions: SenegalRegion[] = [
   {
-    type: 'Feature',
+    type: "Feature",
     properties: {
-      id: 'dakar',
-      name: 'Dakar',
-      capital: 'Dakar',
+      id: "dakar",
+      name: "Dakar",
+      capital: "Dakar",
       population: 3732000,
     },
     geometry: {
-      type: 'Polygon',
+      type: "Polygon",
       coordinates: [
         [
           [-17.2, 14.6],
@@ -41,15 +41,15 @@ export const senegalRegions: SenegalRegion[] = [
     },
   },
   {
-    type: 'Feature',
+    type: "Feature",
     properties: {
-      id: 'thies',
-      name: 'Thiès',
-      capital: 'Thiès',
+      id: "thies",
+      name: "Thiès",
+      capital: "Thiès",
       population: 1960000,
     },
     geometry: {
-      type: 'Polygon',
+      type: "Polygon",
       coordinates: [
         [
           [-17.2, 14.6],
@@ -65,15 +65,15 @@ export const senegalRegions: SenegalRegion[] = [
     },
   },
   {
-    type: 'Feature',
+    type: "Feature",
     properties: {
-      id: 'diourbel',
-      name: 'Diourbel',
-      capital: 'Diourbel',
+      id: "diourbel",
+      name: "Diourbel",
+      capital: "Diourbel",
       population: 1670000,
     },
     geometry: {
-      type: 'Polygon',
+      type: "Polygon",
       coordinates: [
         [
           [-16.3, 14.8],
@@ -88,15 +88,15 @@ export const senegalRegions: SenegalRegion[] = [
     },
   },
   {
-    type: 'Feature',
+    type: "Feature",
     properties: {
-      id: 'fatick',
-      name: 'Fatick',
-      capital: 'Fatick',
+      id: "fatick",
+      name: "Fatick",
+      capital: "Fatick",
       population: 811000,
     },
     geometry: {
-      type: 'Polygon',
+      type: "Polygon",
       coordinates: [
         [
           [-16.5, 14.5],
@@ -112,15 +112,15 @@ export const senegalRegions: SenegalRegion[] = [
     },
   },
   {
-    type: 'Feature',
+    type: "Feature",
     properties: {
-      id: 'kaolack',
-      name: 'Kaolack',
-      capital: 'Kaolack',
+      id: "kaolack",
+      name: "Kaolack",
+      capital: "Kaolack",
       population: 1023000,
     },
     geometry: {
-      type: 'Polygon',
+      type: "Polygon",
       coordinates: [
         [
           [-15.8, 14.7],
@@ -135,15 +135,15 @@ export const senegalRegions: SenegalRegion[] = [
     },
   },
   {
-    type: 'Feature',
+    type: "Feature",
     properties: {
-      id: 'kaffrine',
-      name: 'Kaffrine',
-      capital: 'Kaffrine',
+      id: "kaffrine",
+      name: "Kaffrine",
+      capital: "Kaffrine",
       population: 596000,
     },
     geometry: {
-      type: 'Polygon',
+      type: "Polygon",
       coordinates: [
         [
           [-15.0, 14.0],
@@ -158,15 +158,15 @@ export const senegalRegions: SenegalRegion[] = [
     },
   },
   {
-    type: 'Feature',
+    type: "Feature",
     properties: {
-      id: 'louga',
-      name: 'Louga',
-      capital: 'Louga',
+      id: "louga",
+      name: "Louga",
+      capital: "Louga",
       population: 988000,
     },
     geometry: {
-      type: 'Polygon',
+      type: "Polygon",
       coordinates: [
         [
           [-16.8, 15.2],
@@ -181,15 +181,15 @@ export const senegalRegions: SenegalRegion[] = [
     },
   },
   {
-    type: 'Feature',
+    type: "Feature",
     properties: {
-      id: 'matam',
-      name: 'Matam',
-      capital: 'Matam',
+      id: "matam",
+      name: "Matam",
+      capital: "Matam",
       population: 627000,
     },
     geometry: {
-      type: 'Polygon',
+      type: "Polygon",
       coordinates: [
         [
           [-13.5, 15.2],
@@ -204,15 +204,15 @@ export const senegalRegions: SenegalRegion[] = [
     },
   },
   {
-    type: 'Feature',
+    type: "Feature",
     properties: {
-      id: 'saint-louis',
-      name: 'Saint-Louis',
-      capital: 'Saint-Louis',
+      id: "saint-louis",
+      name: "Saint-Louis",
+      capital: "Saint-Louis",
       population: 1029000,
     },
     geometry: {
-      type: 'Polygon',
+      type: "Polygon",
       coordinates: [
         [
           [-16.5, 15.8],
@@ -227,15 +227,15 @@ export const senegalRegions: SenegalRegion[] = [
     },
   },
   {
-    type: 'Feature',
+    type: "Feature",
     properties: {
-      id: 'tambacounda',
-      name: 'Tambacounda',
-      capital: 'Tambacounda',
+      id: "tambacounda",
+      name: "Tambacounda",
+      capital: "Tambacounda",
       population: 701000,
     },
     geometry: {
-      type: 'Polygon',
+      type: "Polygon",
       coordinates: [
         [
           [-13.2, 14.8],
@@ -251,15 +251,15 @@ export const senegalRegions: SenegalRegion[] = [
     },
   },
   {
-    type: 'Feature',
+    type: "Feature",
     properties: {
-      id: 'kedougou',
-      name: 'Kédougou',
-      capital: 'Kédougou',
+      id: "kedougou",
+      name: "Kédougou",
+      capital: "Kédougou",
       population: 200000,
     },
     geometry: {
-      type: 'Polygon',
+      type: "Polygon",
       coordinates: [
         [
           [-12.2, 13.3],
@@ -275,15 +275,15 @@ export const senegalRegions: SenegalRegion[] = [
     },
   },
   {
-    type: 'Feature',
+    type: "Feature",
     properties: {
-      id: 'kolda',
-      name: 'Kolda',
-      capital: 'Kolda',
+      id: "kolda",
+      name: "Kolda",
+      capital: "Kolda",
       population: 742000,
     },
     geometry: {
-      type: 'Polygon',
+      type: "Polygon",
       coordinates: [
         [
           [-15.0, 13.8],
@@ -299,15 +299,15 @@ export const senegalRegions: SenegalRegion[] = [
     },
   },
   {
-    type: 'Feature',
+    type: "Feature",
     properties: {
-      id: 'sedhiou',
-      name: 'Sédhiou',
-      capital: 'Sédhiou',
+      id: "sedhiou",
+      name: "Sédhiou",
+      capital: "Sédhiou",
       population: 535000,
     },
     geometry: {
-      type: 'Polygon',
+      type: "Polygon",
       coordinates: [
         [
           [-15.8, 13.9],
@@ -322,15 +322,15 @@ export const senegalRegions: SenegalRegion[] = [
     },
   },
   {
-    type: 'Feature',
+    type: "Feature",
     properties: {
-      id: 'ziguinchor',
-      name: 'Ziguinchor',
-      capital: 'Ziguinchor',
+      id: "ziguinchor",
+      name: "Ziguinchor",
+      capital: "Ziguinchor",
       population: 600000,
     },
     geometry: {
-      type: 'Polygon',
+      type: "Polygon",
       coordinates: [
         [
           [-16.7, 12.3],
@@ -349,25 +349,25 @@ export const senegalCenter = {
   latitude: 14.4974,
   longitude: -14.4524,
   latitudeDelta: 6.0,
-  longitudeDelta: 6.0,
+  longitudeDelta: 8.0,
 };
 
 export const getRegionColor = (regionId: string): string => {
   const colors: Record<string, string> = {
-    dakar: '#FF6B6B',
-    thies: '#4ECDC4',
-    diourbel: '#45B7D1',
-    fatick: '#96CEB4',
-    kaolack: '#FFEAA7',
-    kaffrine: '#DFE6E9',
-    louga: '#74B9FF',
-    matam: '#A29BFE',
-    'saint-louis': '#FD79A8',
-    tambacounda: '#FDCB6E',
-    kedougou: '#6C5CE7',
-    kolda: '#00B894',
-    sedhiou: '#00CEC9',
-    ziguinchor: '#FF7675',
+    dakar: "#FF6B6B",
+    thies: "#4ECDC4",
+    diourbel: "#45B7D1",
+    fatick: "#96CEB4",
+    kaolack: "#FFEAA7",
+    kaffrine: "#DFE6E9",
+    louga: "#74B9FF",
+    matam: "#A29BFE",
+    "saint-louis": "#FD79A8",
+    tambacounda: "#FDCB6E",
+    kedougou: "#6C5CE7",
+    kolda: "#00B894",
+    sedhiou: "#00CEC9",
+    ziguinchor: "#FF7675",
   };
-  return colors[regionId] || '#95A5A6';
+  return colors[regionId] || "#95A5A6";
 };
