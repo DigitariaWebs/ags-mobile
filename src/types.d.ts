@@ -40,3 +40,25 @@ interface ForgotPasswordFormData {
 interface ForgotPasswordFormErrors {
   email: string;
 }
+
+// Advice Form Types
+interface AdviceFormData {
+  region: string;
+  department: string;
+  municipality: string;
+  cultivatedArea: string;
+  areaUnit: "sqm" | "hectare";
+  soilType: string;
+  productionType: string;
+  crop: string;
+}
+
+interface AdviceFormErrors {
+  region?: string;
+  department?: string;
+  municipality?: string;
+  cultivatedArea?: string;
+  soilType?: string;
+  productionType?: string;
+  crop?: string;
+}

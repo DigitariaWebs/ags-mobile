@@ -78,3 +78,65 @@ export const loginSchema = z.object({
 export const forgotPasswordSchema = z.object({
   email: z.email("L'email n'est pas valide").nonempty("L'email est requis"),
 });
+
+// Advice form validation schemas - Step by step
+export const adviceStep1Schema = z.object({
+  region: z.string().min(1, "Veuillez sélectionner une région"),
+  department: z.string().min(1, "Veuillez sélectionner un département"),
+  municipality: z.string().min(1, "Veuillez sélectionner une commune"),
+});
+
+export const adviceStep2Schema = z.object({
+  cultivatedArea: z
+    .string()
+    .min(1, "Veuillez entrer la superficie")
+    .refine(
+      (val) => {
+        const num = Number(val);
+        return !isNaN(num) && num > 0;
+      },
+      { message: "Veuillez entrer une valeur valide supérieure à 0" },
+    ),
+  areaUnit: z.enum(["sqm", "hectare"], {
+    message: "Veuillez sélectionner une unité de mesure",
+  }),
+});
+
+export const adviceStep3Schema = z.object({
+  soilType: z.string().min(1, "Veuillez sélectionner un type de sol"),
+});
+
+export const adviceStep4Schema = z.object({
+  productionType: z
+    .string()
+    .min(1, "Veuillez sélectionner un itinéraire technique"),
+});
+
+export const adviceStep5Schema = z.object({
+  crop: z.string().min(1, "Veuillez sélectionner une culture"),
+});
+
+// Complete advice form validation schema
+export const adviceFormSchema = z.object({
+  region: z.string().min(1, "Veuillez sélectionner une région"),
+  department: z.string().min(1, "Veuillez sélectionner un département"),
+  municipality: z.string().min(1, "Veuillez sélectionner une commune"),
+  cultivatedArea: z
+    .string()
+    .min(1, "Veuillez entrer la superficie")
+    .refine(
+      (val) => {
+        const num = Number(val);
+        return !isNaN(num) && num > 0;
+      },
+      { message: "Veuillez entrer une valeur valide supérieure à 0" },
+    ),
+  areaUnit: z.enum(["sqm", "hectare"], {
+    message: "Veuillez sélectionner une unité de mesure",
+  }),
+  soilType: z.string().min(1, "Veuillez sélectionner un type de sol"),
+  productionType: z
+    .string()
+    .min(1, "Veuillez sélectionner un itinéraire technique"),
+  crop: z.string().min(1, "Veuillez sélectionner une culture"),
+});

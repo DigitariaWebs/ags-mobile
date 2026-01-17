@@ -70,13 +70,13 @@ This document tracks all development tasks for the Agsmobile agricultural platfo
 
 ### Input Collection
 
-- [ ] Design multi-step advice form UI
-- [ ] Implement location selector (region/department/municipality)
-- [ ] Add cultivated area input with unit conversion (m²/hectares)
-- [ ] Create soil type selector (sandy, loamy, clay)
-- [ ] Add farm itinerary/production type selector
-- [ ] Implement crop type selector
-- [ ] Add form validation
+- [x] Design multi-step advice form UI
+- [x] Implement location selector (region/department/municipality)
+- [x] Add cultivated area input with unit conversion (m²/hectares)
+- [x] Create soil type selector (sandy, loamy, clay)
+- [x] Add farm itinerary/production type selector
+- [x] Implement crop type selector
+- [x] Add form validation
 
 ### Recommendation Engine
 
@@ -85,13 +85,13 @@ This document tracks all development tasks for the Agsmobile agricultural platfo
 - [ ] Create phytosanitary treatment database by crop
 - [ ] Implement treatment recommendation logic (preventive & curative)
 - [ ] Add seasonal considerations to recommendations
-- [ ] Create recommendation display screen with clear formatting
+- [x] Create recommendation display screen with clear formatting
 
 ### Content Management
 
 - [ ] Build admin interface for managing advice content
-- [ ] Create crop database with characteristics
-- [ ] Add soil type database with properties
+- [x] Create crop database with characteristics
+- [x] Add soil type database with properties
 - [ ] Implement fertilizer products database
 - [ ] Add phytosanitary products database
 - [ ] Enable content versioning and updates
