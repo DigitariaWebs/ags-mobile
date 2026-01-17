@@ -5,6 +5,9 @@ export const signupStep1Schema = z.object({
   firstName: z.string().min(1, "Le prénom est requis"),
   lastName: z.string().min(1, "Le nom de famille est requis"),
   gender: z.string().optional(),
+  userType: z.enum(["job_seeker", "farm_owner"], {
+    message: "Veuillez sélectionner un type de compte",
+  }),
 });
 
 export const signupStep2Schema = z.object({
@@ -44,6 +47,9 @@ export const signupFormSchema = z.object({
   firstName: z.string().min(1, "Le prénom est requis"),
   lastName: z.string().min(1, "Le nom de famille est requis"),
   gender: z.string().optional(),
+  userType: z.enum(["job_seeker", "farm_owner"], {
+    message: "Veuillez sélectionner un type de compte",
+  }),
   email: z.email("L'email n'est pas valide").nonempty("L'email est requis"),
   phone: z
     .string()

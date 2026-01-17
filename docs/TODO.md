@@ -100,36 +100,98 @@ This document tracks all development tasks for the Agsmobile agricultural platfo
 
 ## 💼 Feature: Agricultural Employment
 
+### Foundation & Authentication
+
+- [x] Add user type selection to signup (job seeker vs farm owner)
+- [x] Update types and validation schemas for user types
+- [x] Create USER_TYPES.md documentation
+- [x] Create UserContext for managing user type globally
+- [x] Implement user type toggle functionality for testing
+- [x] Create employment screen with dual views (job seeker & recruiter)
+- [ ] Integrate Supabase authentication with user metadata
+- [ ] Implement conditional routing based on user type
+- [ ] Create role-based access control system
+
 ### Job Seeker Module
 
+- [x] Create job seeker view in employment screen
+- [x] Implement job search with real-time filtering
+- [x] Add filter system by contract type (CDI, CDD, Saisonnier, Stage)
+- [x] Display job listings with key information
+- [x] Create job detail modal with full information
+- [x] Add statistics dashboard (available jobs, applications, favorites)
+- [x] Create mock job data for testing
 - [ ] Create job seeker application form (10 fields as specified)
+  - Personal information (name, contact, location)
+  - Education level dropdown
+  - Professional experience fields
+  - Position type selector
+  - Salary expectations input
+  - Skills and certifications
+  - Availability
+  - Work preferences
 - [ ] Implement form validation for all fields
-- [ ] Add education level dropdown
-- [ ] Create professional experience input fields
-- [ ] Add position type selector
-- [ ] Implement salary expectations input
 - [ ] Create job seeker profile page
 - [ ] Add profile editing functionality
-- [ ] Implement application submission and confirmation
+- [x] Implement application viewing for recruiters
+- [ ] Implement application submission for job seekers
+- [ ] Add document upload (CV, certificates)
+- [ ] Implement favorites/bookmarks functionality
 
 ### Recruiter/Employer Module
 
-- [ ] Create recruiter/farm registration
-- [ ] Build job posting form (title, profile, contract, salary, etc.)
-- [ ] Implement job listing management dashboard
-- [ ] Add applicant viewing and filtering interface
-- [ ] Create applicant detail view for recruiters
+- [x] Create recruiter view in employment screen
+- [x] Implement recruiter dashboard with statistics
+- [x] Display list of posted jobs with management options
+- [x] Add "Post New Job" button (fully functional)
+- [x] Show applicant count per job
+- [x] Create job management interface (view, edit buttons)
+- [x] Build job posting form (title, farm name, location, contract, salary, description, requirements)
+- [x] Implement job editing functionality
+- [x] Implement job deletion functionality with confirmation
+- [x] Implement job duplication functionality
+- [x] Add applicant viewing interface with full details
+- [x] Create applicant detail view for recruiters
+- [x] Implement application status tracking (pending, reviewed, accepted, rejected)
+- [x] Add action menu for job management
+- [x] Create mock applicant data for testing
+- [x] Add Senegalese regions and departments data
+- [x] Implement form validation for job posting
+- [ ] Create recruiter/farm registration form (initial onboarding)
+  - Farm name and type
+  - Location details
+  - Farm size and crops
+  - Contact information
+  - Business registration details
 - [ ] Add contact/messaging functionality between recruiters and seekers
-- [ ] Implement application status tracking
+- [ ] Add job posting approval workflow
+- [ ] Implement real-time notifications for new applications
 
 ### Matching & Search
 
-- [ ] Build job search functionality with filters
+- [x] Build job search functionality with real-time search
+- [x] Implement contract type filter
+- [x] Add keyword search by title, farm name, and location
+- [ ] Add advanced filters:
+  - Location-based filtering (region, department)
+  - Salary range filter
+  - Position type filter
 - [ ] Implement location-based job recommendations
-- [ ] Add keyword search for jobs and candidates
 - [ ] Create "suggested jobs" feature for seekers
 - [ ] Add "recommended candidates" for recruiters
 - [ ] Implement notification system for new matches
+- [ ] Add saved jobs/candidates feature
+
+### Documentation
+
+- [x] Create EMPLOYMENT_FEATURE.md with comprehensive documentation
+- [x] Document UserContext usage and architecture
+- [x] Document job and application interfaces
+- [x] Add future Supabase integration guide
+- [x] Create test scenarios documentation
+- [x] Add mock data documentation
+- [x] Document job posting form implementation
+- [x] Document application management system
 
 ---
 

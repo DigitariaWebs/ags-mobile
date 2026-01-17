@@ -23,6 +23,7 @@ export default function Signup() {
     firstName: "",
     lastName: "",
     gender: "",
+    userType: "",
     email: "",
     phone: "",
     password: "",
@@ -35,6 +36,7 @@ export default function Signup() {
   const [errors, setErrors] = useState<SignupFormErrors>({
     firstName: "",
     lastName: "",
+    userType: "",
     email: "",
     phone: "",
     password: "",
@@ -54,6 +56,7 @@ export default function Signup() {
     let newErrors: SignupFormErrors = {
       firstName: "",
       lastName: "",
+      userType: "",
       email: "",
       phone: "",
       password: "",
@@ -69,6 +72,7 @@ export default function Signup() {
             firstName: formData.firstName,
             lastName: formData.lastName,
             gender: formData.gender,
+            userType: formData.userType,
           });
           break;
 
@@ -128,7 +132,21 @@ export default function Signup() {
     // Remove leading zeros from phone number
     const cleanedPhone = formData.phone.replace(/^0+/, "");
 
-    // TODO: Implement signup logic
+    // TODO: Implement Supabase signup logic
+    // Example implementation:
+    // const { data, error } = await supabase.auth.signUp({
+    //   email: formData.email,
+    //   password: formData.password,
+    //   options: {
+    //     data: {
+    //       first_name: formData.firstName,
+    //       last_name: formData.lastName,
+    //       gender: formData.gender,
+    //       user_type: formData.userType, // 'job_seeker' or 'farm_owner'
+    //       phone: countryCode + cleanedPhone,
+    //     },
+    //   },
+    // });
     console.log("Signup", {
       ...formData,
       phone: countryCode + cleanedPhone,
@@ -269,7 +287,7 @@ export default function Signup() {
                 </View>
 
                 {/* Gender Select */}
-                <View className="mb-0">
+                <View className="mb-4">
                   <Text className="text-sm font-medium text-foreground mb-2">
                     Genre
                   </Text>
@@ -287,6 +305,49 @@ export default function Signup() {
                       <Picker.Item label="Autre" value="other" />
                     </Picker>
                   </View>
+                </View>
+
+                {/* User Type Select */}
+                <View className="mb-0">
+                  <Text className="text-sm font-medium text-foreground mb-2">
+                    Type de compte <Text className="text-red-500">*</Text>
+                  </Text>
+                  <View className="bg-gray-50 border border-gray-200 rounded-xl overflow-hidden">
+                    <Picker
+                      selectedValue={formData.userType}
+                      onValueChange={(itemValue) => {
+                        setFormData({
+                          ...formData,
+                          userType: itemValue as
+                            | "job_seeker"
+                            | "farm_owner"
+                            | "",
+                        });
+                        if (errors.userType) {
+                          setErrors({ ...errors, userType: "" });
+                        }
+                      }}
+                      style={{ height: 50 }}
+                    >
+                      <Picker.Item
+                        label="Sélectionnez votre type de compte"
+                        value=""
+                      />
+                      <Picker.Item
+                        label="Chercheur d'emploi"
+                        value="job_seeker"
+                      />
+                      <Picker.Item
+                        label="Propriétaire de ferme / Recruteur"
+                        value="farm_owner"
+                      />
+                    </Picker>
+                  </View>
+                  {errors.userType ? (
+                    <Text className="text-red-500 text-xs mt-1">
+                      {errors.userType}
+                    </Text>
+                  ) : null}
                 </View>
               </View>
             )}
