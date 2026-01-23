@@ -1,4 +1,9 @@
-import React, { createContext, useContext, useState, PropsWithChildren } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  PropsWithChildren,
+} from "react";
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
@@ -6,7 +11,9 @@ export function UserProvider({ children }: PropsWithChildren) {
   const [userType, setUserType] = useState<UserType>("job_seeker");
 
   const toggleUserType = () => {
-    setUserType((prev) => (prev === "job_seeker" ? "farm_owner" : "job_seeker"));
+    setUserType((prev) =>
+      prev === "job_seeker" ? "farm_owner" : "job_seeker",
+    );
   };
 
   const value: UserContextType = {

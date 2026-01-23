@@ -17,7 +17,10 @@ export const senegalRegions = [
   { label: "Ziguinchor", value: "Ziguinchor" },
 ];
 
-export const senegalDepartments: Record<string, { label: string; value: string }[]> = {
+export const senegalDepartments: Record<
+  string,
+  { label: string; value: string }[]
+> = {
   Dakar: [
     { label: "Dakar", value: "Dakar" },
     { label: "Guédiawaye", value: "Guédiawaye" },

@@ -1,4 +1,9 @@
-import React, { createContext, useContext, useState, PropsWithChildren } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  PropsWithChildren,
+} from "react";
 import { mockJobs, mockMyJobs, mockApplicants } from "@/data/mockJobs";
 import { Alert } from "react-native";
 
@@ -24,7 +29,7 @@ interface JobsContextType {
   updateApplicationStatus: (
     applicationId: string,
     jobId: string,
-    status: "pending" | "reviewed" | "accepted" | "rejected"
+    status: "pending" | "reviewed" | "accepted" | "rejected",
   ) => void;
   getApplicationsByJobId: (jobId: string) => JobApplication[];
 }
@@ -34,9 +39,12 @@ const JobsContext = createContext<JobsContextType | undefined>(undefined);
 export function JobsProvider({ children }: PropsWithChildren) {
   const [allJobs] = useState<Job[]>(mockJobs);
   const [myJobs, setMyJobs] = useState<Job[]>(mockMyJobs);
-  const [applications] = useState<Record<string, JobApplication[]>>(mockApplicants);
+  const [applications] =
+    useState<Record<string, JobApplication[]>>(mockApplicants);
 
-  const createJob = (jobData: Omit<Job, "id" | "postedDate" | "applicantsCount">) => {
+  const createJob = (
+    jobData: Omit<Job, "id" | "postedDate" | "applicantsCount">,
+  ) => {
     const newJob: Job = {
       ...jobData,
       id: `job-${Date.now()}`,
@@ -50,7 +58,7 @@ export function JobsProvider({ children }: PropsWithChildren) {
 
   const updateJob = (id: string, jobData: Partial<Job>) => {
     const updatedJobs = myJobs.map((job) =>
-      job.id === id ? { ...job, ...jobData } : job
+      job.id === id ? { ...job, ...jobData } : job,
     );
     setMyJobs(updatedJobs);
     Alert.alert("Succès", "L'offre a été mise à jour avec succès");
@@ -70,7 +78,7 @@ export function JobsProvider({ children }: PropsWithChildren) {
             Alert.alert("Succès", "L'offre a été supprimée");
           },
         },
-      ]
+      ],
     );
   };
 
@@ -91,13 +99,16 @@ export function JobsProvider({ children }: PropsWithChildren) {
   };
 
   const getJobById = (id: string): Job | undefined => {
-    return myJobs.find((job) => job.id === id) || allJobs.find((job) => job.id === id);
+    return (
+      myJobs.find((job) => job.id === id) ||
+      allJobs.find((job) => job.id === id)
+    );
   };
 
   const updateApplicationStatus = (
     applicationId: string,
     jobId: string,
-    status: "pending" | "reviewed" | "accepted" | "rejected"
+    status: "pending" | "reviewed" | "accepted" | "rejected",
   ) => {
     Alert.alert(
       "Confirmation",
@@ -110,7 +121,7 @@ export function JobsProvider({ children }: PropsWithChildren) {
             Alert.alert("Succès", "Le statut a été mis à jour");
           },
         },
-      ]
+      ],
     );
   };
 

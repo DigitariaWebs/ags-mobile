@@ -127,3 +127,164 @@ interface JobPostingFormErrors {
   description: string;
   requirements: string;
 }
+
+// Training System Types
+type ContentType = "video" | "text" | "image" | "pdf" | "quiz";
+type DifficultyLevel = "débutant" | "intermédiaire" | "avancé";
+type QuestionType = "multiple_choice" | "true_false" | "text";
+
+interface MediaContent {
+  type: ContentType;
+  url?: string;
+  localUri?: string;
+  text?: string;
+  duration?: number; // for videos in seconds
+  thumbnailUrl?: string;
+  downloadProgress?: number;
+  isDownloaded?: boolean;
+}
+
+interface QuizQuestion {
+  id: string;
+  type: QuestionType;
+  question: string;
+  options?: string[];
+  correctAnswer: string | number;
+  explanation?: string;
+}
+
+interface Quiz {
+  id: string;
+  title: string;
+  questions: QuizQuestion[];
+  passingScore: number; // percentage
+  timeLimit?: number; // in minutes
+}
+
+interface Lesson {
+  id: string;
+  title: string;
+  description: string;
+  content: MediaContent[];
+  duration: number; // estimated duration in minutes
+  order: number;
+  quiz?: Quiz;
+  isLocked?: boolean;
+}
+
+interface CourseModule {
+  id: string;
+  title: string;
+  description: string;
+  lessons: Lesson[];
+  order: number;
+}
+
+interface Course {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  thumbnailUrl: string;
+  difficulty: DifficultyLevel;
+  duration: number; // total duration in hours
+  modules: CourseModule[];
+  tags: string[];
+  instructorName?: string;
+  requiresCertification: boolean;
+  certificationCriteria?: {
+    minimumScore: number;
+    requiredLessons: number;
+    onSiteTrainingRequired?: boolean;
+  };
+}
+
+interface LessonProgress {
+  lessonId: string;
+  courseId: string;
+  completed: boolean;
+  lastPosition?: number; // for video position
+  completedAt?: string;
+  timeSpent: number; // in seconds
+}
+
+interface QuizAttempt {
+  quizId: string;
+  lessonId: string;
+  courseId: string;
+  score: number;
+  totalQuestions: number;
+  answers: Record<string, string | number>;
+  attemptedAt: string;
+  passed: boolean;
+}
+
+interface CourseProgress {
+  courseId: string;
+  enrolledAt: string;
+  lastAccessedAt: string;
+  completedLessons: number;
+  totalLessons: number;
+  progressPercentage: number;
+  quizScores: QuizAttempt[];
+  certificateEarned: boolean;
+  certificateId?: string;
+}
+
+interface Bookmark {
+  id: string;
+  courseId: string;
+  lessonId: string;
+  timestamp: number; // for video bookmarks
+  note?: string;
+  createdAt: string;
+}
+
+interface Note {
+  id: string;
+  courseId: string;
+  lessonId: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface Certificate {
+  id: string;
+  courseId: string;
+  userId: string;
+  userName: string;
+  issuedAt: string;
+  expiresAt?: string;
+  verificationCode: string;
+  pdfUrl?: string;
+  onSiteTrainingCompleted: boolean;
+  onSiteTrainingDate?: string;
+  onSiteTrainingLocation?: string;
+}
+
+interface TrainingContextType {
+  courses: Course[];
+  enrolledCourses: string[];
+  courseProgress: Record<string, CourseProgress>;
+  lessonProgress: Record<string, LessonProgress>;
+  bookmarks: Bookmark[];
+  notes: Note[];
+  certificates: Certificate[];
+  enrollInCourse: (courseId: string) => void;
+  updateLessonProgress: (
+    lessonId: string,
+    courseId: string,
+    progress: Partial<LessonProgress>,
+  ) => void;
+  completeLesson: (lessonId: string, courseId: string) => void;
+  submitQuizAttempt: (attempt: QuizAttempt) => void;
+  addBookmark: (bookmark: Omit<Bookmark, "id" | "createdAt">) => void;
+  removeBookmark: (bookmarkId: string) => void;
+  addNote: (note: Omit<Note, "id" | "createdAt" | "updatedAt">) => void;
+  updateNote: (noteId: string, content: string) => void;
+  deleteNote: (noteId: string) => void;
+  downloadLesson: (lessonId: string, courseId: string) => Promise<void>;
+  getCourseById: (courseId: string) => Course | undefined;
+  getLessonById: (courseId: string, lessonId: string) => Lesson | undefined;
+}
