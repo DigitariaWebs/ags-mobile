@@ -348,8 +348,8 @@ export const senegalRegions: SenegalRegion[] = [
 export const senegalCenter = {
   latitude: 14.4974,
   longitude: -14.4524,
-  latitudeDelta: 6.0,
-  longitudeDelta: 8.0,
+  latitudeDelta: 12.0,
+  longitudeDelta: 12.0,
 };
 
 export const getRegionColor = (regionId: string): string => {
