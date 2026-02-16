@@ -8,7 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { loginSchema } from "@/schemas/validation";
 
@@ -60,7 +60,8 @@ export default function Login() {
     if (!validateForm()) {
       return;
     }
-
+    // this is just to access the tabs route
+    router.push("/(tabs)/advice");
     // TODO: Implement login logic
     console.log("Login", formData);
   };

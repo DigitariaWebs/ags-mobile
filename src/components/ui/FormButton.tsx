@@ -4,7 +4,7 @@ import { TouchableOpacity, Text, ActivityIndicator } from "react-native";
 interface FormButtonProps {
   onPress: () => void;
   title: string;
-  variant?: "primary" | "secondary" | "outline";
+  variant?: "primary" | "secondary" | "outline" | "danger";
   disabled?: boolean;
   loading?: boolean;
   className?: string;
@@ -27,6 +27,8 @@ export default function FormButton({
         return "bg-green-600";
       case "secondary":
         return "bg-gray-600";
+      case "danger":
+        return "bg-red-600";
       case "outline":
         return "bg-white border-2 border-green-600";
       default:
@@ -41,6 +43,8 @@ export default function FormButton({
     switch (variant) {
       case "outline":
         return "text-green-600";
+      case "danger":
+        return "text-white";
       default:
         return "text-white";
     }

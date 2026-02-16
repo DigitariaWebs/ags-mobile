@@ -28,7 +28,7 @@ export default function Index() {
   }
 
   if (!isOnboardingCompleted) {
-    router.replace("/onboarding");
+    router.push("/onboarding");
   }
 
   const resetOnboarding = async () => {
