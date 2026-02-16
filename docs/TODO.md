@@ -41,10 +41,10 @@ This document tracks all development tasks for the Agsmobile agricultural platfo
 ### Map Integration
 
 - [x] Integrate map library (React Native Maps or Mapbox)
-- [x] Load Senegal administrative regions boundaries
-- [x] Implement region click/tap interactions
+- [ ] Load Senegal administrative regions boundaries
+- [ ] Implement region click/tap interactions
 - [x] Add zoom and pan controls
-- [x] Optimize map performance for mobile devices
+- [ ] Optimize map performance for mobile devices
 
 ### Farm Management
 
@@ -104,7 +104,6 @@ This document tracks all development tasks for the Agsmobile agricultural platfo
 
 - [x] Add user type selection to signup (job seeker vs farm owner)
 - [x] Update types and validation schemas for user types
-- [x] Create USER_TYPES.md documentation
 - [x] Create UserContext for managing user type globally
 - [x] Implement user type toggle functionality for testing
 - [x] Create employment screen with dual views (job seeker & recruiter)

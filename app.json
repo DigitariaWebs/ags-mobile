@@ -7,7 +7,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "agsmobile",
     "userInterfaceStyle": "automatic",
-    "statusBarHidden": true,
     "newArchEnabled": true,
     "platforms": ["ios", "android"],
     "experiments": {
@@ -26,10 +25,6 @@
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/Logo.png"
-      },
-      "statusBar": {
-        "hidden": true,
-        "translucent": false
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
