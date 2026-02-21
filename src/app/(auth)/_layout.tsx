@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View } from "react-native";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import Svg, { Path, Defs, Pattern, Circle } from "react-native-svg";
+import { useUser } from "@/contexts/UserContext";
 
 export default function AuthLayout() {
+  const router = useRouter();
+  const { currentUser } = useUser();
+
+  useEffect(() => {
+    if (currentUser && router) {
+      router.replace("/map");
+    }
+  }, [currentUser, router]);
+
   return (
     <>
       {/* Shared Decorative Background */}
@@ -55,6 +65,8 @@ export default function AuthLayout() {
         <Stack.Screen name="login" />
         <Stack.Screen name="signup" />
         <Stack.Screen name="forgot-password" />
+        <Stack.Screen name="change-password" />
+        {__DEV__ && <Stack.Screen name="dev-login" />}
       </Stack>
     </>
   );

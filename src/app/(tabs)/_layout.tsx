@@ -1,7 +1,20 @@
-import { Tabs } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
+import { useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { useUser } from "@/contexts/UserContext";
 
 export default function TabsLayout() {
+  const router = useRouter();
+  const { currentUser } = useUser();
+
+  useEffect(() => {
+    if (!currentUser) {
+      router.replace(__DEV__ ? "/(auth)/dev-login" : "/(auth)/login");
+    }
+  }, [currentUser, router]);
+
+  if (!currentUser) return null;
+
   return (
     <Tabs
       screenOptions={{
@@ -62,6 +75,15 @@ export default function TabsLayout() {
           title: "Formation",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="school" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Profil",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person-circle-outline" size={size} color={color} />
           ),
         }}
       />

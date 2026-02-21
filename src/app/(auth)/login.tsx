@@ -8,11 +8,13 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { loginSchema } from "@/schemas/validation";
+import { ZodError } from "zod";
 
 export default function Login() {
+  const router = useRouter();
   const [formData, setFormData] = useState<LoginFormData>({
     email: "",
     password: "",
@@ -24,7 +26,6 @@ export default function Login() {
     password: "",
   });
 
-  // Refs for form inputs
   const emailRef = useRef<TextInput>(null);
   const passwordRef = useRef<TextInput>(null);
 
@@ -41,8 +42,8 @@ export default function Login() {
         password: formData.password,
       });
     } catch (error: any) {
-      if (error.errors) {
-        error.errors.forEach((err: any) => {
+      if (error instanceof ZodError) {
+        error.issues.forEach((err: any) => {
           const field = err.path[0] as keyof LoginFormErrors;
           if (field in newErrors) {
             newErrors[field] = err.message;
@@ -63,6 +64,7 @@ export default function Login() {
 
     // TODO: Implement login logic
     console.log("Login", formData);
+    router.replace("/map");
   };
 
   return (
@@ -71,7 +73,6 @@ export default function Login() {
       className="flex-1"
     >
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="flex-1">
-        {/* Content */}
         <View className="flex-1 justify-center items-center px-6 py-12">
           <View className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8">
             {/* Title */}
@@ -82,12 +83,30 @@ export default function Login() {
               Connectez-vous pour accéder à votre espace personnel
             </Text>
 
+            {/* Error Summary */}
+            {errors.email || errors.password ? (
+              <View className="flex-row items-center bg-red-50 border border-red-200 rounded-xl px-4 py-3 mb-6">
+                <Ionicons
+                  name="alert-circle-outline"
+                  size={18}
+                  color="#ef4444"
+                />
+                <Text className="text-red-600 text-sm ml-2 flex-1">
+                  Veuillez corriger les erreurs ci-dessous avant de continuer.
+                </Text>
+              </View>
+            ) : null}
+
             {/* Email Input */}
             <View className="mb-6">
               <Text className="text-sm font-medium text-foreground mb-2">
                 Email <Text className="text-red-500">*</Text>
               </Text>
-              <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5">
+              <View
+                className={`flex-row items-center bg-gray-50 border rounded-xl px-4 py-2.5 ${
+                  errors.email ? "border-red-400" : "border-gray-200"
+                }`}
+              >
                 <Ionicons name="mail-outline" size={20} color="#10b981" />
                 <TextInput
                   ref={emailRef}
@@ -121,7 +140,11 @@ export default function Login() {
               <Text className="text-sm font-medium text-foreground mb-2">
                 Mot de passe <Text className="text-red-500">*</Text>
               </Text>
-              <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5">
+              <View
+                className={`flex-row items-center bg-gray-50 border rounded-xl px-4 py-2.5 ${
+                  errors.password ? "border-red-400" : "border-gray-200"
+                }`}
+              >
                 <Ionicons
                   name="lock-closed-outline"
                   size={20}
@@ -167,10 +190,7 @@ export default function Login() {
             <View className="flex-row justify-between items-center mb-8">
               <TouchableOpacity
                 onPress={() =>
-                  setFormData({
-                    ...formData,
-                    rememberMe: !formData.rememberMe,
-                  })
+                  setFormData({ ...formData, rememberMe: !formData.rememberMe })
                 }
                 activeOpacity={0.7}
                 className="flex-row items-center"

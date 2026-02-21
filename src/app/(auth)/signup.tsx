@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { Link, useRouter } from "expo-router";
 import {
   View,
   Text,
@@ -8,7 +9,6 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { Link } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import {
@@ -16,8 +16,10 @@ import {
   signupStep2Schema,
   signupStep3Schema,
 } from "@/schemas/validation";
+import { ZodError } from "zod";
 
 export default function Signup() {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<SignupFormData>({
     firstName: "",
@@ -95,8 +97,8 @@ export default function Signup() {
           return true;
       }
     } catch (error: any) {
-      if (error.errors) {
-        error.errors.forEach((err: any) => {
+      if (error instanceof ZodError) {
+        error.issues.forEach((err: any) => {
           const field = err.path[0] as keyof SignupFormErrors;
           if (field === "terms") {
             newErrors.terms = err.message;
@@ -132,25 +134,11 @@ export default function Signup() {
     // Remove leading zeros from phone number
     const cleanedPhone = formData.phone.replace(/^0+/, "");
 
-    // TODO: Implement Supabase signup logic
-    // Example implementation:
-    // const { data, error } = await supabase.auth.signUp({
-    //   email: formData.email,
-    //   password: formData.password,
-    //   options: {
-    //     data: {
-    //       first_name: formData.firstName,
-    //       last_name: formData.lastName,
-    //       gender: formData.gender,
-    //       user_type: formData.userType, // 'job_seeker' or 'farm_owner'
-    //       phone: countryCode + cleanedPhone,
-    //     },
-    //   },
-    // });
     console.log("Signup", {
       ...formData,
       phone: countryCode + cleanedPhone,
     });
+    router.replace("/map");
   };
 
   return (
@@ -211,6 +199,24 @@ export default function Signup() {
               </View>
             </View>
 
+            {/* Error Summary */}
+            {(currentStep === 1 &&
+              (errors.firstName || errors.lastName || errors.userType)) ||
+            (currentStep === 2 && (errors.email || errors.phone)) ||
+            (currentStep === 3 &&
+              (errors.password || errors.confirmPassword || errors.terms)) ? (
+              <View className="flex-row items-center bg-red-50 border border-red-200 rounded-xl px-4 py-3 mb-6">
+                <Ionicons
+                  name="alert-circle-outline"
+                  size={18}
+                  color="#ef4444"
+                />
+                <Text className="text-red-600 text-sm ml-2 flex-1">
+                  Veuillez corriger les erreurs ci-dessous avant de continuer.
+                </Text>
+              </View>
+            ) : null}
+
             {/* Section 1: Personal Information */}
             {currentStep === 1 && (
               <View className="mb-6">
@@ -228,7 +234,9 @@ export default function Signup() {
                   <Text className="text-sm font-medium text-foreground mb-2">
                     Prénom <Text className="text-red-500">*</Text>
                   </Text>
-                  <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5">
+                  <View
+                    className={`flex-row items-center bg-gray-50 border rounded-xl px-4 py-2.5 ${errors.firstName ? "border-red-400" : "border-gray-200"}`}
+                  >
                     <Ionicons name="person-outline" size={20} color="#10b981" />
                     <TextInput
                       ref={firstNameRef}
@@ -260,7 +268,9 @@ export default function Signup() {
                   <Text className="text-sm font-medium text-foreground mb-2">
                     Nom de famille <Text className="text-red-500">*</Text>
                   </Text>
-                  <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5">
+                  <View
+                    className={`flex-row items-center bg-gray-50 border rounded-xl px-4 py-2.5 ${errors.lastName ? "border-red-400" : "border-gray-200"}`}
+                  >
                     <Ionicons name="person-outline" size={20} color="#10b981" />
                     <TextInput
                       ref={lastNameRef}
@@ -291,13 +301,13 @@ export default function Signup() {
                   <Text className="text-sm font-medium text-foreground mb-2">
                     Genre
                   </Text>
-                  <View className="bg-gray-50 border border-gray-200 rounded-xl overflow-hidden">
+                  <View className="bg-gray-50 border border-gray-200 rounded-xl">
                     <Picker
                       selectedValue={formData.gender}
                       onValueChange={(itemValue) =>
                         setFormData({ ...formData, gender: itemValue })
                       }
-                      style={{ height: 50 }}
+                      style={{ height: 50, color: "#111827" }}
                     >
                       <Picker.Item label="Sélectionnez votre genre" value="" />
                       <Picker.Item label="Homme" value="male" />
@@ -312,7 +322,9 @@ export default function Signup() {
                   <Text className="text-sm font-medium text-foreground mb-2">
                     Type de compte <Text className="text-red-500">*</Text>
                   </Text>
-                  <View className="bg-gray-50 border border-gray-200 rounded-xl overflow-hidden">
+                  <View
+                    className={`bg-gray-50 border rounded-xl ${errors.userType ? "border-red-400" : "border-gray-200"}`}
+                  >
                     <Picker
                       selectedValue={formData.userType}
                       onValueChange={(itemValue) => {
@@ -327,7 +339,7 @@ export default function Signup() {
                           setErrors({ ...errors, userType: "" });
                         }
                       }}
-                      style={{ height: 50 }}
+                      style={{ height: 50, color: "#111827" }}
                     >
                       <Picker.Item
                         label="Sélectionnez votre type de compte"
@@ -369,7 +381,9 @@ export default function Signup() {
                   <Text className="text-sm font-medium text-foreground mb-2">
                     Email <Text className="text-red-500">*</Text>
                   </Text>
-                  <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5">
+                  <View
+                    className={`flex-row items-center bg-gray-50 border rounded-xl px-4 py-2.5 ${errors.email ? "border-red-400" : "border-gray-200"}`}
+                  >
                     <Ionicons name="mail-outline" size={20} color="#10b981" />
                     <TextInput
                       ref={emailRef}
@@ -403,7 +417,9 @@ export default function Signup() {
                   <Text className="text-sm font-medium text-foreground mb-2">
                     Téléphone
                   </Text>
-                  <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5">
+                  <View
+                    className={`flex-row items-center bg-gray-50 border rounded-xl px-4 py-2.5 ${errors.phone ? "border-red-400" : "border-gray-200"}`}
+                  >
                     <Ionicons name="call-outline" size={20} color="#10b981" />
                     <View className="ml-3 flex-row items-center border-r border-gray-300 pr-3">
                       <Text className="text-2xl mr-1">🇸🇳</Text>
@@ -455,7 +471,9 @@ export default function Signup() {
                   <Text className="text-sm font-medium text-foreground mb-2">
                     Mot de passe <Text className="text-red-500">*</Text>
                   </Text>
-                  <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5">
+                  <View
+                    className={`flex-row items-center bg-gray-50 border rounded-xl px-4 py-2.5 ${errors.password ? "border-red-400" : "border-gray-200"}`}
+                  >
                     <Ionicons
                       name="lock-closed-outline"
                       size={20}
@@ -506,7 +524,9 @@ export default function Signup() {
                     Confirmer le mot de passe{" "}
                     <Text className="text-red-500">*</Text>
                   </Text>
-                  <View className="flex-row items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5">
+                  <View
+                    className={`flex-row items-center bg-gray-50 border rounded-xl px-4 py-2.5 ${errors.confirmPassword ? "border-red-400" : "border-gray-200"}`}
+                  >
                     <Ionicons
                       name="lock-closed-outline"
                       size={20}
@@ -567,7 +587,7 @@ export default function Signup() {
                       }
                     }}
                     activeOpacity={0.7}
-                    className="flex-row items-start"
+                    className={`flex-row items-start p-3 rounded-xl border ${errors.terms ? "border-red-300 bg-red-50" : "border-transparent"}`}
                   >
                     <View
                       className={`w-5 h-5 rounded border-2 mr-3 mt-0.5 items-center justify-center ${

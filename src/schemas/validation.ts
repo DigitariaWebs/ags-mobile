@@ -77,7 +77,7 @@ export const signupFormSchema = z.object({
 // Login form validation schema
 export const loginSchema = z.object({
   email: z.email("L'email n'est pas valide").nonempty("L'email est requis"),
-  password: z.string().min(1, "Le mot de passe est requis"),
+  password: z.string().min(8, "Le mot de passe est requis"),
 });
 
 // Forgot password form validation schema

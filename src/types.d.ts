@@ -68,10 +68,22 @@ interface AdviceFormErrors {
 // User Context Types
 type UserType = "job_seeker" | "farm_owner";
 
+interface UserProfile {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  userType: UserType;
+  gender?: string;
+}
+
 interface UserContextType {
   userType: UserType;
   setUserType: (type: UserType) => void;
   toggleUserType: () => void;
+  currentUser: UserProfile | null;
+  setCurrentUser: (user: UserProfile | null) => void;
 }
 
 // Job Types
