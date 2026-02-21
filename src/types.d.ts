@@ -105,14 +105,50 @@ interface Job {
 interface JobApplication {
   id: string;
   jobId: string;
+  applicantId?: string;
   applicantName: string;
   applicantEmail: string;
   applicantPhone: string;
+  applicantAddress?: string;
+  region?: string;
+  department?: string;
   education: string;
   experience: string;
+  desiredPosition: string;
+  salaryExpectation: string;
   appliedDate: string;
   status: "pending" | "reviewed" | "accepted" | "rejected";
   coverLetter?: string;
+}
+
+// Job Application Form Types (candidate)
+interface JobApplicationFormData {
+  firstName: string;
+  lastName: string;
+  address: string;
+  region: string;
+  department: string;
+  phone: string;
+  email: string;
+  education: string;
+  experience: string;
+  desiredPosition: string;
+  salaryExpectation: string;
+  coverLetter: string;
+}
+
+interface JobApplicationFormErrors {
+  firstName: string;
+  lastName: string;
+  address: string;
+  region: string;
+  department: string;
+  phone: string;
+  email: string;
+  education: string;
+  experience: string;
+  desiredPosition: string;
+  salaryExpectation: string;
 }
 
 // Job Posting Form Types

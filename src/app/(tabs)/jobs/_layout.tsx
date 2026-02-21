@@ -12,6 +12,7 @@ export default function JobsLayout() {
       <Stack.Screen name="[id]" />
       <Stack.Screen name="post" />
       <Stack.Screen name="applications" />
+      <Stack.Screen name="apply" />
     </Stack>
   );
 }

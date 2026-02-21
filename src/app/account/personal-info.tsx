@@ -66,7 +66,11 @@ export default function PersonalInfoScreen() {
         {/* Account type badge (read-only) */}
         <View className="bg-white rounded-2xl p-4 shadow-sm flex-row items-center">
           <View className="w-10 h-10 rounded-full bg-primary/10 items-center justify-center mr-3">
-            <Ionicons name="shield-checkmark-outline" size={20} color="#10b981" />
+            <Ionicons
+              name="shield-checkmark-outline"
+              size={20}
+              color="#10b981"
+            />
           </View>
           <View className="flex-1">
             <Text className="text-xs text-muted-foreground mb-0.5">
@@ -118,9 +122,7 @@ export default function PersonalInfoScreen() {
             <TextInput
               className="text-base text-foreground"
               value={formData.email}
-              onChangeText={(text) =>
-                setFormData({ ...formData, email: text })
-              }
+              onChangeText={(text) => setFormData({ ...formData, email: text })}
               keyboardType="email-address"
               autoCapitalize="none"
               placeholder="votre@email.com"

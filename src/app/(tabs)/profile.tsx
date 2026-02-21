@@ -1,7 +1,8 @@
 import React from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import { useRouter, Href } from "expo-router";
+import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useUser } from "@/contexts/UserContext";
 
 export default function ProfileScreen() {
@@ -11,6 +12,12 @@ export default function ProfileScreen() {
   const handleLogout = () => {
     setCurrentUser(null);
     router.replace(__DEV__ ? "/(auth)/dev-login" : "/(auth)/login");
+  };
+
+  const handleResetOnboarding = async () => {
+    await AsyncStorage.removeItem("onboardingCompleted");
+    setCurrentUser(null);
+    router.replace("/");
   };
 
   return (
@@ -133,6 +140,20 @@ export default function ProfileScreen() {
             Se déconnecter
           </Text>
         </TouchableOpacity>
+
+        {/* Dev: Reset Onboarding */}
+        {__DEV__ && (
+          <TouchableOpacity
+            onPress={handleResetOnboarding}
+            activeOpacity={0.8}
+            className="flex-row items-center justify-center bg-orange-50 border border-orange-200 rounded-2xl py-4 mt-3"
+          >
+            <Ionicons name="refresh-outline" size={20} color="#f97316" />
+            <Text className="text-orange-500 font-semibold text-base ml-2">
+              Réinitialiser l&apos;onboarding
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
     </ScrollView>
   );

@@ -105,6 +105,14 @@ export default function JobApplicationsScreen() {
 
               {/* Contact Information */}
               <View className="mb-3">
+                {!!applicant.desiredPosition && (
+                  <View className="flex-row items-center mb-2">
+                    <Ionicons name="person-outline" size={16} color="#6b7280" />
+                    <Text className="text-sm text-gray-600 ml-2">
+                      {applicant.desiredPosition}
+                    </Text>
+                  </View>
+                )}
                 <View className="flex-row items-center mb-2">
                   <Ionicons name="mail-outline" size={16} color="#6b7280" />
                   <Text className="text-sm text-gray-600 ml-2">
@@ -117,16 +125,38 @@ export default function JobApplicationsScreen() {
                     {applicant.applicantPhone}
                   </Text>
                 </View>
-                <View className="flex-row items-center">
+                {!!applicant.applicantAddress && (
+                  <View className="flex-row items-center mb-2">
+                    <Ionicons
+                      name="location-outline"
+                      size={16}
+                      color="#6b7280"
+                    />
+                    <Text className="text-sm text-gray-600 ml-2">
+                      {applicant.applicantAddress}
+                      {applicant.department ? `, ${applicant.department}` : ""}
+                      {applicant.region ? ` — ${applicant.region}` : ""}
+                    </Text>
+                  </View>
+                )}
+                <View className="flex-row items-center mb-2">
                   <Ionicons
                     name="briefcase-outline"
                     size={16}
                     color="#6b7280"
                   />
                   <Text className="text-sm text-gray-600 ml-2">
-                    {applicant.experience} d&apos;expérience
+                    {applicant.experience}
                   </Text>
                 </View>
+                {!!applicant.salaryExpectation && (
+                  <View className="flex-row items-center">
+                    <Ionicons name="cash-outline" size={16} color="#6b7280" />
+                    <Text className="text-sm text-gray-600 ml-2">
+                      Prétentions : {applicant.salaryExpectation}
+                    </Text>
+                  </View>
+                )}
               </View>
 
               {/* Cover Letter */}

@@ -128,11 +128,7 @@ export default function ChangePasswordScreen() {
           {/* Error Summary */}
           {hasErrors ? (
             <View className="flex-row items-center bg-red-50 border border-red-200 rounded-xl px-4 py-3">
-              <Ionicons
-                name="alert-circle-outline"
-                size={18}
-                color="#ef4444"
-              />
+              <Ionicons name="alert-circle-outline" size={18} color="#ef4444" />
               <Text className="text-red-600 text-sm ml-2 flex-1">
                 Veuillez corriger les erreurs ci-dessous avant de continuer.
               </Text>
@@ -144,14 +140,11 @@ export default function ChangePasswordScreen() {
             {/* Current password */}
             <View className="px-4 pt-4 pb-3 border-b border-gray-100">
               <Text className="text-xs text-muted-foreground mb-2">
-                Mot de passe actuel{" "}
-                <Text className="text-red-500">*</Text>
+                Mot de passe actuel <Text className="text-red-500">*</Text>
               </Text>
               <View
                 className={`flex-row items-center bg-gray-50 border rounded-xl px-3 py-2.5 ${
-                  errors.currentPassword
-                    ? "border-red-400"
-                    : "border-gray-200"
+                  errors.currentPassword ? "border-red-400" : "border-gray-200"
                 }`}
               >
                 <Ionicons
@@ -247,9 +240,7 @@ export default function ChangePasswordScreen() {
               </Text>
               <View
                 className={`flex-row items-center bg-gray-50 border rounded-xl px-3 py-2.5 ${
-                  errors.confirmPassword
-                    ? "border-red-400"
-                    : "border-gray-200"
+                  errors.confirmPassword ? "border-red-400" : "border-gray-200"
                 }`}
               >
                 <Ionicons name="key-outline" size={18} color="#10b981" />
@@ -319,7 +310,11 @@ export default function ChangePasswordScreen() {
             className="bg-primary rounded-2xl py-4 items-center justify-center"
           >
             <View className="flex-row items-center">
-              <Ionicons name="shield-checkmark-outline" size={20} color="white" />
+              <Ionicons
+                name="shield-checkmark-outline"
+                size={20}
+                color="white"
+              />
               <Text className="text-white text-base font-semibold ml-2">
                 Mettre à jour le mot de passe
               </Text>

@@ -26,12 +26,18 @@ interface JobsContextType {
   getJobById: (id: string) => Job | undefined;
 
   // Application operations
+  submitApplication: (
+    application: Omit<JobApplication, "id" | "appliedDate" | "status">,
+  ) => void;
   updateApplicationStatus: (
     applicationId: string,
     jobId: string,
     status: "pending" | "reviewed" | "accepted" | "rejected",
   ) => void;
   getApplicationsByJobId: (jobId: string) => JobApplication[];
+  getMyApplications: (applicantId: string) => JobApplication[];
+  getAcceptedJobsForUser: (applicantId: string) => Job[];
+  hasApplied: (jobId: string, applicantId: string) => boolean;
 }
 
 const JobsContext = createContext<JobsContextType | undefined>(undefined);
@@ -39,7 +45,7 @@ const JobsContext = createContext<JobsContextType | undefined>(undefined);
 export function JobsProvider({ children }: PropsWithChildren) {
   const [allJobs] = useState<Job[]>(mockJobs);
   const [myJobs, setMyJobs] = useState<Job[]>(mockMyJobs);
-  const [applications] =
+  const [applications, setApplications] =
     useState<Record<string, JobApplication[]>>(mockApplicants);
 
   const createJob = (
@@ -51,16 +57,14 @@ export function JobsProvider({ children }: PropsWithChildren) {
       postedDate: new Date().toISOString().split("T")[0],
       applicantsCount: 0,
     };
-
     setMyJobs([newJob, ...myJobs]);
     Alert.alert("Succès", "Votre offre a été publiée avec succès");
   };
 
   const updateJob = (id: string, jobData: Partial<Job>) => {
-    const updatedJobs = myJobs.map((job) =>
-      job.id === id ? { ...job, ...jobData } : job,
+    setMyJobs(
+      myJobs.map((job) => (job.id === id ? { ...job, ...jobData } : job)),
     );
-    setMyJobs(updatedJobs);
     Alert.alert("Succès", "L'offre a été mise à jour avec succès");
   };
 
@@ -93,7 +97,6 @@ export function JobsProvider({ children }: PropsWithChildren) {
       postedDate: new Date().toISOString().split("T")[0],
       applicantsCount: 0,
     };
-
     setMyJobs([newJob, ...myJobs]);
     Alert.alert("Succès", "L'offre a été dupliquée");
   };
@@ -105,28 +108,86 @@ export function JobsProvider({ children }: PropsWithChildren) {
     );
   };
 
+  const submitApplication = (
+    applicationData: Omit<JobApplication, "id" | "appliedDate" | "status">,
+  ) => {
+    const newApplication: JobApplication = {
+      ...applicationData,
+      id: `app-${Date.now()}`,
+      appliedDate: new Date().toISOString().split("T")[0],
+      status: "pending",
+    };
+    setApplications((prev) => {
+      const existing = prev[applicationData.jobId] ?? [];
+      return {
+        ...prev,
+        [applicationData.jobId]: [...existing, newApplication],
+      };
+    });
+  };
+
   const updateApplicationStatus = (
     applicationId: string,
     jobId: string,
     status: "pending" | "reviewed" | "accepted" | "rejected",
   ) => {
-    Alert.alert(
-      "Confirmation",
-      `Changer le statut de la candidature à "${status}" ?`,
-      [
-        { text: "Annuler", style: "cancel" },
-        {
-          text: "Confirmer",
-          onPress: () => {
-            Alert.alert("Succès", "Le statut a été mis à jour");
-          },
+    const label =
+      status === "accepted"
+        ? "Accepter"
+        : status === "rejected"
+          ? "Rejeter"
+          : status === "reviewed"
+            ? "Marquer comme examiné"
+            : "Remettre en attente";
+
+    Alert.alert("Confirmation", `${label} cette candidature ?`, [
+      { text: "Annuler", style: "cancel" },
+      {
+        text: "Confirmer",
+        onPress: () => {
+          setApplications((prev) => {
+            const jobApps = prev[jobId] ?? [];
+            return {
+              ...prev,
+              [jobId]: jobApps.map((app) =>
+                app.id === applicationId ? { ...app, status } : app,
+              ),
+            };
+          });
+          Alert.alert("Succès", "Le statut a été mis à jour");
         },
-      ],
-    );
+      },
+    ]);
   };
 
   const getApplicationsByJobId = (jobId: string): JobApplication[] => {
-    return applications[jobId] || [];
+    return applications[jobId] ?? [];
+  };
+
+  const getMyApplications = (applicantId: string): JobApplication[] => {
+    return Object.values(applications)
+      .flat()
+      .filter((app) => app.applicantId === applicantId);
+  };
+
+  const hasApplied = (jobId: string, applicantId: string): boolean => {
+    return (applications[jobId] ?? []).some(
+      (app) => app.applicantId === applicantId,
+    );
+  };
+
+  const getAcceptedJobsForUser = (applicantId: string): Job[] => {
+    const acceptedJobIds = Object.entries(applications)
+      .filter(([, apps]) =>
+        apps.some(
+          (app) => app.applicantId === applicantId && app.status === "accepted",
+        ),
+      )
+      .map(([jobId]) => jobId);
+
+    return [...allJobs, ...myJobs].filter((job) =>
+      acceptedJobIds.includes(job.id),
+    );
   };
 
   const value: JobsContextType = {
@@ -139,8 +200,12 @@ export function JobsProvider({ children }: PropsWithChildren) {
     deleteJob,
     duplicateJob,
     getJobById,
+    submitApplication,
     updateApplicationStatus,
     getApplicationsByJobId,
+    getMyApplications,
+    getAcceptedJobsForUser,
+    hasApplied,
   };
 
   return <JobsContext.Provider value={value}>{children}</JobsContext.Provider>;

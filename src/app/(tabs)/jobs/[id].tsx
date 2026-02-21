@@ -9,16 +9,18 @@ import { useUser } from "@/contexts/UserContext";
 export default function JobDetailsScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
-  const { getJobById, deleteJob, duplicateJob } = useJobs();
-  const { userType } = useUser();
+  const { getJobById, deleteJob, duplicateJob, hasApplied } = useJobs();
+  const { userType, currentUser } = useUser();
 
   const jobId = params.id as string;
   const job = getJobById(jobId);
 
   const [showActionMenu, setShowActionMenu] = useState(false);
 
-  const isRecruiter = userType === "farm_owner";
-  const isMyJob = job && isRecruiter; // In real app, check if job.userId === currentUser.id
+  const isRecruiter = (currentUser?.userType ?? userType) === "farm_owner";
+  const isMyJob = job && isRecruiter;
+  const alreadyApplied =
+    !isRecruiter && !!currentUser && hasApplied(jobId, currentUser.id);
 
   if (!job) {
     return (
@@ -65,11 +67,7 @@ export default function JobDetailsScreen() {
   };
 
   const handleApply = () => {
-    Alert.alert(
-      "Postuler",
-      "La fonctionnalité de candidature sera disponible prochainement.",
-      [{ text: "OK" }],
-    );
+    router.push({ pathname: "/(tabs)/jobs/apply", params: { id: jobId } });
   };
 
   const handleStatistics = () => {
@@ -93,14 +91,13 @@ export default function JobDetailsScreen() {
               Détails de l&apos;offre
             </Text>
           </View>
-          {isMyJob && (
+          {isMyJob ? (
             <TouchableOpacity
               onPress={() => setShowActionMenu(!showActionMenu)}
             >
               <Ionicons name="ellipsis-vertical" size={24} color="white" />
             </TouchableOpacity>
-          )}
-          {!isMyJob && (
+          ) : (
             <TouchableOpacity>
               <Ionicons name="bookmark-outline" size={24} color="white" />
             </TouchableOpacity>
@@ -290,6 +287,13 @@ export default function JobDetailsScreen() {
             >
               <Ionicons name="create" size={20} color="#10b981" />
             </TouchableOpacity>
+          </View>
+        ) : alreadyApplied ? (
+          <View className="bg-gray-100 rounded-xl py-4 flex-row items-center justify-center">
+            <Ionicons name="checkmark-circle" size={20} color="#10b981" />
+            <Text className="text-gray-600 text-lg font-bold ml-2">
+              Candidature envoyée
+            </Text>
           </View>
         ) : (
           <TouchableOpacity

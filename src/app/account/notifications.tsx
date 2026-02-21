@@ -18,7 +18,8 @@ export default function NotificationsScreen() {
     {
       id: "new_jobs",
       label: "Nouvelles offres d'emploi",
-      description: "Soyez alerté des nouvelles offres correspondant à votre profil",
+      description:
+        "Soyez alerté des nouvelles offres correspondant à votre profil",
       icon: "briefcase-outline",
       enabled: true,
     },
@@ -61,7 +62,7 @@ export default function NotificationsScreen() {
 
   const toggle = (id: string) => {
     setSettings((prev) =>
-      prev.map((s) => (s.id === id ? { ...s, enabled: !s.enabled } : s))
+      prev.map((s) => (s.id === id ? { ...s, enabled: !s.enabled } : s)),
     );
   };
 

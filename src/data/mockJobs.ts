@@ -216,6 +216,8 @@ export const mockApplicants: Record<string, JobApplication[]> = {
       applicantPhone: "+221 77 123 4567",
       education: "BTS en Maintenance Industrielle",
       experience: "3 ans",
+      desiredPosition: "Agent de maintenance",
+      salaryExpectation: "180 000 FCFA/mois",
       appliedDate: "2024-01-15",
       status: "pending",
       coverLetter:
@@ -229,6 +231,8 @@ export const mockApplicants: Record<string, JobApplication[]> = {
       applicantPhone: "+221 76 234 5678",
       education: "CAP Mécanique",
       experience: "2 ans",
+      desiredPosition: "Agent de maintenance",
+      salaryExpectation: "160 000 FCFA/mois",
       appliedDate: "2024-01-16",
       status: "reviewed",
       coverLetter:
@@ -242,6 +246,8 @@ export const mockApplicants: Record<string, JobApplication[]> = {
       applicantPhone: "+221 78 345 6789",
       education: "Formation professionnelle en mécanique",
       experience: "1 an",
+      desiredPosition: "Agent de maintenance",
+      salaryExpectation: "150 000 FCFA/mois",
       appliedDate: "2024-01-17",
       status: "pending",
       coverLetter:
@@ -255,6 +261,8 @@ export const mockApplicants: Record<string, JobApplication[]> = {
       applicantPhone: "+221 77 456 7890",
       education: "Bac + 2 Maintenance",
       experience: "4 ans",
+      desiredPosition: "Agent de maintenance",
+      salaryExpectation: "200 000 FCFA/mois",
       appliedDate: "2024-01-14",
       status: "accepted",
       coverLetter:
@@ -270,6 +278,8 @@ export const mockApplicants: Record<string, JobApplication[]> = {
       applicantPhone: "+221 76 567 8901",
       education: "Ingénieur Agronome",
       experience: "5 ans",
+      desiredPosition: "Responsable d'élevage",
+      salaryExpectation: "350 000 FCFA/mois",
       appliedDate: "2024-01-11",
       status: "pending",
       coverLetter:
@@ -283,6 +293,8 @@ export const mockApplicants: Record<string, JobApplication[]> = {
       applicantPhone: "+221 77 678 9012",
       education: "Technicien Agricole",
       experience: "3 ans",
+      desiredPosition: "Agent d'irrigation",
+      salaryExpectation: "280 000 FCFA/mois",
       appliedDate: "2024-01-12",
       status: "reviewed",
       coverLetter:
@@ -296,6 +308,8 @@ export const mockApplicants: Record<string, JobApplication[]> = {
       applicantPhone: "+221 78 789 0123",
       education: "BTS Gestion de l'eau",
       experience: "4 ans",
+      desiredPosition: "Agent d'irrigation",
+      salaryExpectation: "300 000 FCFA/mois",
       appliedDate: "2024-01-13",
       status: "pending",
       coverLetter:
